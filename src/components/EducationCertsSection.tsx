@@ -1,7 +1,6 @@
 import { Award, Calendar, GraduationCap, Languages } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import type {
 	CertificationsSection,
@@ -143,10 +142,12 @@ export function EducationCertsSection({
 														{item.level}/5
 													</Badge>
 												</div>
-												<Progress
-													value={(item.level / 5) * 100}
-													className="h-2"
-												/>
+												<div className="h-2 w-full overflow-hidden rounded-full bg-purple-100 dark:bg-gray-700">
+													<div
+														className="h-full bg-purple-600 dark:bg-purple-400 transition-all"
+														style={{ width: `${(item.level / 5) * 100}%` }}
+													/>
+												</div>
 											</div>
 										</CardHeader>
 									</Card>
