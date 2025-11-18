@@ -52,7 +52,7 @@ function App() {
 			</div>
 
 			{/* Footer */}
-			<footer className="py-8 px-4 bg-gray-900 dark:bg-gray-950 text-white text-center">
+			<footer className="py-8 px-4 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white text-center">
 				<p className="text-sm">
 					© {new Date().getFullYear()} {resume.basics.name}. All rights
 					reserved.

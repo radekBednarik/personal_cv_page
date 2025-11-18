@@ -11,11 +11,11 @@ export function HeroSection({ basics }: HeroSectionProps) {
 	return (
 		<section className="relative bg-gradient-to-b from-purple-600/10 to-transparent dark:from-purple-600/20 dark:to-gray-900/50 py-16 px-4 overflow-hidden">
 			{/* Floating background elements */}
-			<div className="absolute top-10 right-10 opacity-10 dark:opacity-5">
-				<FlaskConical className="h-32 w-32 text-purple-600 animate-float" />
+			<div className="absolute top-10 right-10 opacity-10 dark:opacity-20">
+				<FlaskConical className="h-16 w-16 md:h-32 md:w-32 text-purple-600 dark:text-purple-400 animate-float" />
 			</div>
-			<div className="absolute bottom-10 left-10 opacity-10 dark:opacity-5">
-				<Code2 className="h-24 w-24 text-purple-600 animate-float-delayed" />
+			<div className="absolute bottom-10 left-10 opacity-10 dark:opacity-20">
+				<Code2 className="h-12 w-12 md:h-24 md:w-24 text-purple-600 dark:text-purple-400 animate-float-delayed" />
 			</div>
 
 			<div className="container mx-auto max-w-4xl relative z-10">
