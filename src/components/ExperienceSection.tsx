@@ -1,4 +1,10 @@
-import { Calendar, ExternalLink, Newspaper, TestTube } from "lucide-react";
+import {
+	Calendar,
+	CheckCircle2,
+	ExternalLink,
+	Newspaper,
+	TestTube,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type {
@@ -67,12 +73,20 @@ export function ExperienceSection({
 						.map((item) => (
 							<Card
 								key={item.id}
-								className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700"
+								className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300"
 							>
 								{/* Timeline indicator */}
 								<div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 dark:bg-purple-400" />
 
-								<CardHeader className="pl-6">
+								<CardHeader className="pl-6 pr-4 pt-6">
+									{/* Quality Badge */}
+									<div className="flex justify-end mb-2">
+										<Badge className="bg-success hover:bg-success text-success-foreground flex items-center gap-1">
+											<CheckCircle2 className="h-3 w-3" />
+											Quality Assured
+										</Badge>
+									</div>
+
 									<div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
 										<div className="flex-1">
 											<CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">

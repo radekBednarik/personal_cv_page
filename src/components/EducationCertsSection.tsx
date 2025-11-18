@@ -1,4 +1,10 @@
-import { Award, Calendar, GraduationCap, Languages } from "lucide-react";
+import {
+	Award,
+	Calendar,
+	CheckCircle2,
+	GraduationCap,
+	Languages,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type {
@@ -35,7 +41,7 @@ export function EducationCertsSection({
 						.map((item) => (
 							<Card
 								key={item.id}
-								className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
+								className="hover:shadow-lg transition-all duration-300 hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
 							>
 								<CardHeader>
 									<CardTitle className="text-lg text-purple-600 dark:text-purple-400">
@@ -76,10 +82,13 @@ export function EducationCertsSection({
 								.map((item) => (
 									<Card
 										key={item.id}
-										className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
+										className="relative hover:shadow-lg transition-all duration-300 hover:scale-[1.02] dark:bg-gray-800 dark:border-gray-700 border-2 hover:border-success/50 dark:hover:border-success/50"
 									>
+										<div className="absolute top-4 right-4">
+											<CheckCircle2 className="h-5 w-5 text-success" />
+										</div>
 										<CardHeader>
-											<CardTitle className="text-lg text-purple-600 dark:text-purple-400">
+											<CardTitle className="text-lg text-purple-600 dark:text-purple-400 pr-8">
 												{item.name}
 											</CardTitle>
 											<p className="text-sm text-gray-600 dark:text-gray-400">
@@ -119,7 +128,7 @@ export function EducationCertsSection({
 								.map((item) => (
 									<Card
 										key={item.id}
-										className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
+										className="hover:shadow-lg transition-all duration-300 hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
 									>
 										<CardHeader>
 											<CardTitle className="text-lg text-purple-600 dark:text-purple-400 mb-4">
