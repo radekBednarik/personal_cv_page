@@ -44,10 +44,12 @@ export function ExperienceSection({
 			);
 		}
 		return (
-			<>
+			<span
+				className={`inline-flex items-center gap-2 ${colorClass} font-semibold`}
+			>
 				<Briefcase className="h-5 w-5" />
 				{company}
-			</>
+			</span>
 		);
 	};
 
