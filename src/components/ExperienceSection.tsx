@@ -1,4 +1,4 @@
-import { Briefcase, Calendar } from "lucide-react";
+import { Briefcase, Calendar, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -22,7 +22,10 @@ export function ExperienceSection({
 		"Skoda Auto": "https://www.skoda-auto.com/",
 	};
 
-	const renderCompanyName = (company: string) => {
+	const renderCompanyName = (
+		company: string,
+		colorClass: string = "text-purple-600 dark:text-purple-400",
+	) => {
 		const url = companyLinks[company];
 		if (url) {
 			return (
@@ -30,13 +33,22 @@ export function ExperienceSection({
 					href={url}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="hover:underline"
+					className={`hover:underline inline-flex items-center gap-2 ${colorClass} font-semibold`}
 				>
-					{company}
+					<Briefcase className="h-5 w-5" />
+					<span className="inline-flex items-start gap-1">
+						{company}
+						<ExternalLink className="h-3 w-3" />
+					</span>
 				</a>
 			);
 		}
-		return company;
+		return (
+			<>
+				<Briefcase className="h-5 w-5" />
+				{company}
+			</>
+		);
 	};
 
 	const formatDate = (startDate: string, endDate: string) => {
@@ -70,9 +82,11 @@ export function ExperienceSection({
 											<CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
 												{item.position}
 											</CardTitle>
-											<div className="flex items-center gap-2 text-lg text-purple-600 dark:text-purple-400 font-semibold mb-2">
-												<Briefcase className="h-5 w-5" />
-												{renderCompanyName(item.company)}
+											<div className="text-lg mb-2">
+												{renderCompanyName(
+													item.company,
+													"text-purple-600 dark:text-purple-400",
+												)}
 											</div>
 											{item.project && (
 												<p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
@@ -159,9 +173,11 @@ export function ExperienceSection({
 													<CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
 														{item.position}
 													</CardTitle>
-													<div className="flex items-center gap-2 text-lg text-gray-700 dark:text-gray-300 font-semibold">
-														<Briefcase className="h-5 w-5" />
-														{renderCompanyName(item.company)}
+													<div className="text-lg">
+														{renderCompanyName(
+															item.company,
+															"text-gray-700 dark:text-gray-300",
+														)}
 													</div>
 												</div>
 												<div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
