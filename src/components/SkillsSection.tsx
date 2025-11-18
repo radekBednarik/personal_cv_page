@@ -1,4 +1,5 @@
 import { Code2 } from "lucide-react";
+import { ToolBadge } from "@/components/ToolBadge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { SkillsSection as SkillsSectionType } from "@/lib/resume-types";
@@ -18,29 +19,33 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
 					</h2>
 				</div>
 
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="space-y-8">
 					{skills.items
 						.filter((item) => item.visible)
 						.map((item) => (
 							<Card
 								key={item.id}
-								className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
+								className="hover:shadow-lg transition-all duration-300 hover:scale-[1.02] dark:bg-gray-800 dark:border-gray-700"
 							>
 								<CardHeader>
-									<CardTitle className="text-lg text-purple-600 dark:text-purple-400">
+									<CardTitle className="text-lg text-purple-600 dark:text-purple-400 flex items-center gap-2">
 										{item.name}
+										<Badge
+											variant="outline"
+											className="text-xs font-normal border-purple-600/30 text-gray-700 dark:text-gray-300"
+										>
+											{item.keywords.length} tools
+										</Badge>
 									</CardTitle>
 								</CardHeader>
 								<CardContent>
 									<div className="flex flex-wrap gap-2">
 										{item.keywords.map((keyword) => (
-											<Badge
+											<ToolBadge
 												key={`${item.id}-keyword-${keyword}`}
-												variant="secondary"
-												className="text-xs dark:bg-gray-700 dark:text-gray-200"
-											>
-												{keyword}
-											</Badge>
+												tool={keyword}
+												className="bg-purple-600 hover:bg-purple-600/90 dark:bg-purple-400 dark:hover:bg-purple-400/90"
+											/>
 										))}
 									</div>
 								</CardContent>

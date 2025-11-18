@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { ProfileSection } from "@/components/ProfileSection";
 import { SkillsSection } from "@/components/SkillsSection";
+import { TestingPhilosophySection } from "@/components/TestingPhilosophySection";
 import type { Resume } from "@/lib/resume-types";
 import resumeData from "../../.temp/resume.json";
 
@@ -22,6 +23,10 @@ function App() {
 				linkedinUrl="https://www.linkedin.com/in/bednarikradek/"
 			/>
 			<HeroSection basics={resume.basics} />
+			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
+			<div id="testing-philosophy">
+				<TestingPhilosophySection />
+			</div>
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="profile">
 				<ProfileSection summary={resume.sections.summary} />
@@ -47,7 +52,7 @@ function App() {
 			</div>
 
 			{/* Footer */}
-			<footer className="py-8 px-4 bg-gray-900 dark:bg-gray-950 text-white text-center">
+			<footer className="py-8 px-4 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white text-center">
 				<p className="text-sm">
 					© {new Date().getFullYear()} {resume.basics.name}. All rights
 					reserved.
