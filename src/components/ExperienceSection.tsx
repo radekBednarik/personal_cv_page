@@ -16,6 +16,29 @@ export function ExperienceSection({
 	experience,
 	projects,
 }: ExperienceSectionProps) {
+	const companyLinks: Record<string, string> = {
+		"Soundtrack.io": "https://www.soundtrack.io/",
+		"Komerční banka": "https://www.kb.cz/",
+		"Skoda Auto": "https://www.skoda-auto.com/",
+	};
+
+	const renderCompanyName = (company: string) => {
+		const url = companyLinks[company];
+		if (url) {
+			return (
+				<a
+					href={url}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="hover:underline"
+				>
+					{company}
+				</a>
+			);
+		}
+		return company;
+	};
+
 	const formatDate = (startDate: string, endDate: string) => {
 		if (!endDate) {
 			return `${startDate} - Present`;
@@ -49,7 +72,7 @@ export function ExperienceSection({
 											</CardTitle>
 											<div className="flex items-center gap-2 text-lg text-purple-600 dark:text-purple-400 font-semibold mb-2">
 												<Briefcase className="h-5 w-5" />
-												{item.company}
+												{renderCompanyName(item.company)}
 											</div>
 											{item.project && (
 												<p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
@@ -138,7 +161,7 @@ export function ExperienceSection({
 													</CardTitle>
 													<div className="flex items-center gap-2 text-lg text-gray-700 dark:text-gray-300 font-semibold">
 														<Briefcase className="h-5 w-5" />
-														{item.company}
+														{renderCompanyName(item.company)}
 													</div>
 												</div>
 												<div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
