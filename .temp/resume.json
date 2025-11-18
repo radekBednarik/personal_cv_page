@@ -29,7 +29,7 @@
       "separateLinks": true,
       "visible": true,
       "id": "summary",
-      "content": "<p>I love coding and test automation. I am primarily interested in front-end, but I have some experience with integration testing as well. I have been working primarily with JavaScript/TypeScript frameworks (Playwright, Cypress, Mocha, etc.). I have proficiency at JavaScript/TypeScript, Python and little bit of Go.</p><p style=\"text-align: justify\">All my coding shenanigans can be found on my <a target=\"_blank\" rel=\"noreferrer noopener\" class=\"Hyperlink SCXW94385296 BCX2\" href=\"https://github.com/radekBednarik\"><u>Github</u></a>.&nbsp;</p>"
+      "content": "<p>I love coding and test automation.</p> <p>I am primarily interested in front-end, but I have some experience with integration testing as well. I have been working primarily with JavaScript/TypeScript frameworks (Playwright, Cypress, Mocha, etc.). </p> <p>I have proficiency at JavaScript/TypeScript, Python and little bit of Go.</p><p>All my coding shenanigans can be found on my <a target=\"_blank\" rel=\"noreferrer noopener\" class=\"Hyperlink SCXW94385296 BCX2\" href=\"https://github.com/radekBednarik\"><u>Github</u></a>.&nbsp;</p>"
     },
     "awards": {
       "name": "COURSES",
