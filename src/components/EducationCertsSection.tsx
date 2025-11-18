@@ -1,7 +1,6 @@
 import { Award, Calendar, GraduationCap, Languages } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import type {
 	CertificationsSection,
 	EducationSection,
@@ -61,8 +60,6 @@ export function EducationCertsSection({
 						))}
 				</div>
 
-				<Separator className="my-12 dark:bg-gray-700" />
-
 				{/* Certifications Section */}
 				{certifications.items.length > 0 && (
 					<>
@@ -103,8 +100,6 @@ export function EducationCertsSection({
 									</Card>
 								))}
 						</div>
-
-						<Separator className="my-12 dark:bg-gray-700" />
 					</>
 				)}
 

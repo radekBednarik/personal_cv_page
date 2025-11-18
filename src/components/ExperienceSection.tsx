@@ -1,7 +1,6 @@
 import { Briefcase, Calendar, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import type {
 	ExperienceSection as ExperienceSectionType,
 	ProjectsSection,
@@ -63,9 +62,12 @@ export function ExperienceSection({
 	return (
 		<section className="py-12 px-4 bg-gray-50 dark:bg-gray-900">
 			<div className="container mx-auto max-w-4xl">
-				<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">
-					{experience.name}
-				</h2>
+				<div className="flex items-center gap-3 mb-8">
+					<Briefcase className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+						Experience
+					</h2>
+				</div>
 
 				<div className="space-y-6">
 					{experience.items
@@ -154,10 +156,9 @@ export function ExperienceSection({
 				{/* Other Experience Section */}
 				{projects && projects.items.length > 0 && (
 					<>
-						<Separator className="my-12 dark:bg-gray-700" />
-						<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">
+						<h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mt-12 mb-6">
 							{projects.name}
-						</h2>
+						</h3>
 
 						<div className="space-y-6">
 							{projects.items
