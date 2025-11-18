@@ -1,4 +1,4 @@
-import { Briefcase, Calendar, ExternalLink } from "lucide-react";
+import { Calendar, ExternalLink, Newspaper, TestTube } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type {
@@ -34,7 +34,6 @@ export function ExperienceSection({
 					rel="noopener noreferrer"
 					className={`hover:underline inline-flex items-center gap-2 ${colorClass} font-semibold`}
 				>
-					<Briefcase className="h-5 w-5" />
 					<span className="inline-flex items-start gap-1">
 						{company}
 						<ExternalLink className="h-3 w-3" />
@@ -42,14 +41,7 @@ export function ExperienceSection({
 				</a>
 			);
 		}
-		return (
-			<span
-				className={`inline-flex items-center gap-2 ${colorClass} font-semibold`}
-			>
-				<Briefcase className="h-5 w-5" />
-				{company}
-			</span>
-		);
+		return <span className={`${colorClass} font-semibold`}>{company}</span>;
 	};
 
 	const formatDate = (startDate: string, endDate: string) => {
@@ -63,9 +55,9 @@ export function ExperienceSection({
 		<section className="py-12 px-4 bg-gray-50 dark:bg-gray-900">
 			<div className="container mx-auto max-w-4xl">
 				<div className="flex items-center gap-3 mb-8">
-					<Briefcase className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+					<TestTube className="h-8 w-8 text-purple-600 dark:text-purple-400" />
 					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-						Experience
+						QA Experience
 					</h2>
 				</div>
 
@@ -156,9 +148,12 @@ export function ExperienceSection({
 				{/* Other Experience Section */}
 				{projects && projects.items.length > 0 && (
 					<>
-						<h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mt-12 mb-6">
-							{projects.name}
-						</h3>
+						<div className="flex items-center gap-2 mt-12 mb-6">
+							<Newspaper className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+							<h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300">
+								{projects.name}
+							</h3>
+						</div>
 
 						<div className="space-y-6">
 							{projects.items
