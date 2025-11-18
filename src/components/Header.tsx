@@ -8,6 +8,7 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
+import { triggerHaptic } from "@/lib/haptics";
 
 interface HeaderProps {
 	githubUrl?: string;
@@ -18,6 +19,7 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const scrollToSection = (id: string) => {
+		triggerHaptic(); // Trigger haptic feedback on mobile devices
 		const element = document.getElementById(id);
 		if (element) {
 			element.scrollIntoView({ behavior: "smooth" });
