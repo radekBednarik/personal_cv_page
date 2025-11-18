@@ -1,12 +1,12 @@
-import { Github, Mail } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
-	email: string;
 	githubUrl?: string;
+	linkedinUrl?: string;
 }
 
-export default function Header({ email, githubUrl }: HeaderProps) {
+export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 	const scrollToSection = (id: string) => {
 		const element = document.getElementById(id);
 		if (element) {
@@ -66,16 +66,23 @@ export default function Header({ email, githubUrl }: HeaderProps) {
 							</a>
 						</Button>
 					)}
-					<Button
-						variant="ghost"
-						size="sm"
-						asChild
-						className="dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-800"
-					>
-						<a href={`mailto:${email}`} aria-label="Email">
-							<Mail className="h-5 w-5" />
-						</a>
-					</Button>
+					{linkedinUrl && (
+						<Button
+							variant="ghost"
+							size="sm"
+							asChild
+							className="dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-800"
+						>
+							<a
+								href={linkedinUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="LinkedIn"
+							>
+								<Linkedin className="h-5 w-5" />
+							</a>
+						</Button>
+					)}
 				</div>
 			</div>
 		</header>

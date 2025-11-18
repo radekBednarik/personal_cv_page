@@ -18,8 +18,8 @@ function App() {
 	return (
 		<div className="min-h-screen bg-white dark:bg-gray-900">
 			<Header
-				email={resume.basics.email}
 				githubUrl="https://github.com/radekBednarik"
+				linkedinUrl="https://www.linkedin.com/in/bednarikradek/"
 			/>
 			<HeroSection basics={resume.basics} />
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}

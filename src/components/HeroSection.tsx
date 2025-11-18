@@ -1,4 +1,4 @@
-import { Mail } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import type { Basics } from "@/lib/resume-types";
@@ -35,8 +35,12 @@ export function HeroSection({ basics }: HeroSectionProps) {
 								className="bg-purple-600 hover:bg-purple-600/90"
 								asChild
 							>
-								<a href={`mailto:${basics.email}`}>
-									<Mail className="mr-2 h-4 w-4" />
+								<a
+									href="https://www.linkedin.com/in/bednarikradek/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Linkedin className="mr-2 h-4 w-4" />
 									Get in Touch
 								</a>
 							</Button>
