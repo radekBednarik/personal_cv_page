@@ -16,7 +16,7 @@ function App() {
 	const resume = resumeData as Resume;
 
 	return (
-		<div className="min-h-screen bg-white">
+		<div className="min-h-screen bg-white dark:bg-gray-900">
 			<Header
 				email={resume.basics.email}
 				githubUrl="https://github.com/radekBednarik"
@@ -47,7 +47,7 @@ function App() {
 			</div>
 
 			{/* Footer */}
-			<footer className="py-8 px-4 bg-gray-900 text-white text-center">
+			<footer className="py-8 px-4 bg-gray-900 dark:bg-gray-950 text-white text-center">
 				<p className="text-sm">
 					© {new Date().getFullYear()} {resume.basics.name}. All rights
 					reserved.

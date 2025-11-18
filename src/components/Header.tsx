@@ -15,34 +15,34 @@ export default function Header({ email, githubUrl }: HeaderProps) {
 	};
 
 	return (
-		<header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+		<header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800 dark:supports-[backdrop-filter]:bg-gray-900/60">
 			<div className="container mx-auto max-w-6xl flex h-16 items-center justify-between px-4">
 				<nav className="flex gap-6">
 					<button
 						type="button"
 						onClick={() => scrollToSection("profile")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
 					>
 						About
 					</button>
 					<button
 						type="button"
 						onClick={() => scrollToSection("experience")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
 					>
 						Experience
 					</button>
 					<button
 						type="button"
 						onClick={() => scrollToSection("skills")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
 					>
 						Skills
 					</button>
 					<button
 						type="button"
 						onClick={() => scrollToSection("education")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
 					>
 						Education
 					</button>
@@ -50,7 +50,12 @@ export default function Header({ email, githubUrl }: HeaderProps) {
 
 				<div className="flex gap-2">
 					{githubUrl && (
-						<Button variant="ghost" size="sm" asChild>
+						<Button
+							variant="ghost"
+							size="sm"
+							asChild
+							className="dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-800"
+						>
 							<a
 								href={githubUrl}
 								target="_blank"
@@ -61,7 +66,12 @@ export default function Header({ email, githubUrl }: HeaderProps) {
 							</a>
 						</Button>
 					)}
-					<Button variant="ghost" size="sm" asChild>
+					<Button
+						variant="ghost"
+						size="sm"
+						asChild
+						className="dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-800"
+					>
 						<a href={`mailto:${email}`} aria-label="Email">
 							<Mail className="h-5 w-5" />
 						</a>

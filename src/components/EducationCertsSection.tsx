@@ -21,34 +21,39 @@ export function EducationCertsSection({
 	languages,
 }: EducationCertsSectionProps) {
 	return (
-		<section className="py-12 px-4 bg-gray-50">
+		<section className="py-12 px-4 bg-gray-50 dark:bg-gray-900">
 			<div className="container mx-auto max-w-4xl">
 				{/* Education Section */}
 				<div className="flex items-center gap-3 mb-8">
-					<GraduationCap className="h-8 w-8 text-[#65B230]" />
-					<h2 className="text-3xl font-bold text-gray-900">{education.name}</h2>
+					<GraduationCap className="h-8 w-8 text-[#65B230] dark:text-[#7CC842]" />
+					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+						{education.name}
+					</h2>
 				</div>
 
 				<div className="grid gap-6 md:grid-cols-2 mb-12">
 					{education.items
 						.filter((item) => item.visible)
 						.map((item) => (
-							<Card key={item.id} className="hover:shadow-lg transition-shadow">
+							<Card
+								key={item.id}
+								className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
+							>
 								<CardHeader>
-									<CardTitle className="text-lg text-[#65B230]">
+									<CardTitle className="text-lg text-[#65B230] dark:text-[#7CC842]">
 										{item.institution}
 									</CardTitle>
-									<p className="text-sm text-gray-600">
+									<p className="text-sm text-gray-600 dark:text-gray-400">
 										{item.studyType} - {item.area}
 									</p>
-									<div className="flex items-center gap-2 text-sm text-gray-500">
+									<div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
 										<Calendar className="h-4 w-4" />
 										<span>{item.date}</span>
 									</div>
 								</CardHeader>
 								<CardContent>
 									<div
-										className="prose prose-sm max-w-none text-[#5c6168]"
+										className="prose prose-sm max-w-none text-[#5c6168] dark:text-gray-300 dark:prose-invert"
 										// biome-ignore lint/security/noDangerouslySetInnerHtml: Resume content is trusted
 										dangerouslySetInnerHTML={{ __html: item.summary }}
 									/>
@@ -57,14 +62,14 @@ export function EducationCertsSection({
 						))}
 				</div>
 
-				<Separator className="my-12" />
+				<Separator className="my-12 dark:bg-gray-700" />
 
 				{/* Certifications Section */}
 				{certifications.items.length > 0 && (
 					<>
 						<div className="flex items-center gap-3 mb-8">
-							<Award className="h-8 w-8 text-[#65B230]" />
-							<h2 className="text-3xl font-bold text-gray-900">
+							<Award className="h-8 w-8 text-[#65B230] dark:text-[#7CC842]" />
+							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 								{certifications.name}
 							</h2>
 						</div>
@@ -75,21 +80,23 @@ export function EducationCertsSection({
 								.map((item) => (
 									<Card
 										key={item.id}
-										className="hover:shadow-lg transition-shadow"
+										className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
 									>
 										<CardHeader>
-											<CardTitle className="text-lg text-[#65B230]">
+											<CardTitle className="text-lg text-[#65B230] dark:text-[#7CC842]">
 												{item.name}
 											</CardTitle>
-											<p className="text-sm text-gray-600">{item.issuer}</p>
-											<div className="flex items-center gap-2 text-sm text-gray-500">
+											<p className="text-sm text-gray-600 dark:text-gray-400">
+												{item.issuer}
+											</p>
+											<div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
 												<Calendar className="h-4 w-4" />
 												<span>{item.date}</span>
 											</div>
 										</CardHeader>
 										<CardContent>
 											<div
-												className="prose prose-sm max-w-none text-[#5c6168]"
+												className="prose prose-sm max-w-none text-[#5c6168] dark:text-gray-300 dark:prose-invert"
 												// biome-ignore lint/security/noDangerouslySetInnerHtml: Resume content is trusted
 												dangerouslySetInnerHTML={{ __html: item.summary }}
 											/>
@@ -98,7 +105,7 @@ export function EducationCertsSection({
 								))}
 						</div>
 
-						<Separator className="my-12" />
+						<Separator className="my-12 dark:bg-gray-700" />
 					</>
 				)}
 
@@ -106,8 +113,8 @@ export function EducationCertsSection({
 				{languages.items.length > 0 && (
 					<>
 						<div className="flex items-center gap-3 mb-8">
-							<Languages className="h-8 w-8 text-[#65B230]" />
-							<h2 className="text-3xl font-bold text-gray-900">
+							<Languages className="h-8 w-8 text-[#65B230] dark:text-[#7CC842]" />
+							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 								{languages.name}
 							</h2>
 						</div>
@@ -118,18 +125,23 @@ export function EducationCertsSection({
 								.map((item) => (
 									<Card
 										key={item.id}
-										className="hover:shadow-lg transition-shadow"
+										className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
 									>
 										<CardHeader>
-											<CardTitle className="text-lg text-[#65B230] mb-4">
+											<CardTitle className="text-lg text-[#65B230] dark:text-[#7CC842] mb-4">
 												{item.name}
 											</CardTitle>
 											<div className="space-y-2">
 												<div className="flex items-center justify-between">
-													<span className="text-sm text-gray-600">
+													<span className="text-sm text-gray-600 dark:text-gray-400">
 														Proficiency
 													</span>
-													<Badge variant="secondary">{item.level}/5</Badge>
+													<Badge
+														variant="secondary"
+														className="dark:bg-gray-700 dark:text-gray-200"
+													>
+														{item.level}/5
+													</Badge>
 												</div>
 												<Progress
 													value={(item.level / 5) * 100}
