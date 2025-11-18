@@ -12,7 +12,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
 		<section className="py-12 px-4 dark:bg-gray-900">
 			<div className="container mx-auto max-w-4xl">
 				<div className="flex items-center gap-3 mb-8">
-					<Code2 className="h-8 w-8 text-[#65B230] dark:text-[#7CC842]" />
+					<Code2 className="h-8 w-8 text-purple-600 dark:text-purple-400" />
 					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 						{skills.name}
 					</h2>
@@ -27,7 +27,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
 								className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
 							>
 								<CardHeader>
-									<CardTitle className="text-lg text-[#65B230] dark:text-[#7CC842]">
+									<CardTitle className="text-lg text-purple-600 dark:text-purple-400">
 										{item.name}
 									</CardTitle>
 								</CardHeader>

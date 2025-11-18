@@ -21,28 +21,28 @@ export default function Header({ email, githubUrl }: HeaderProps) {
 					<button
 						type="button"
 						onClick={() => scrollToSection("profile")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
+						className="text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors dark:text-gray-300 dark:hover:text-purple-400"
 					>
 						About
 					</button>
 					<button
 						type="button"
 						onClick={() => scrollToSection("experience")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
+						className="text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors dark:text-gray-300 dark:hover:text-purple-400"
 					>
 						Experience
 					</button>
 					<button
 						type="button"
 						onClick={() => scrollToSection("skills")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
+						className="text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors dark:text-gray-300 dark:hover:text-purple-400"
 					>
 						Skills
 					</button>
 					<button
 						type="button"
 						onClick={() => scrollToSection("education")}
-						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors dark:text-gray-300 dark:hover:text-[#7CC842]"
+						className="text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors dark:text-gray-300 dark:hover:text-purple-400"
 					>
 						Education
 					</button>

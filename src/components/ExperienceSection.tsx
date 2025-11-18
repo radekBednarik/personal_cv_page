@@ -39,7 +39,7 @@ export function ExperienceSection({
 								className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700"
 							>
 								{/* Timeline indicator */}
-								<div className="absolute left-0 top-0 bottom-0 w-1 bg-[#65B230] dark:bg-[#7CC842]" />
+								<div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 dark:bg-purple-400" />
 
 								<CardHeader className="pl-6">
 									<div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
@@ -47,7 +47,7 @@ export function ExperienceSection({
 											<CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
 												{item.position}
 											</CardTitle>
-											<div className="flex items-center gap-2 text-lg text-[#65B230] dark:text-[#7CC842] font-semibold mb-2">
+											<div className="flex items-center gap-2 text-lg text-purple-600 dark:text-purple-400 font-semibold mb-2">
 												<Briefcase className="h-5 w-5" />
 												{item.company}
 											</div>
@@ -99,7 +99,7 @@ export function ExperienceSection({
 												{item.tools.map((tool) => (
 													<Badge
 														key={`${item.id}-tool-${tool}`}
-														className="bg-[#65B230] hover:bg-[#65B230]/90 dark:bg-[#7CC842] dark:hover:bg-[#7CC842]/90"
+														className="bg-purple-600 hover:bg-purple-600/90 dark:bg-purple-400 dark:hover:bg-purple-400/90"
 													>
 														{tool}
 													</Badge>

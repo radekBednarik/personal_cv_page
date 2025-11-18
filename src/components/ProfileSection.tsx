@@ -11,7 +11,7 @@ export function ProfileSection({ summary }: ProfileSectionProps) {
 			<div className="container mx-auto max-w-4xl">
 				<Card className="dark:bg-gray-800 dark:border-gray-700">
 					<CardHeader>
-						<CardTitle className="text-2xl font-bold text-[#65B230] dark:text-[#7CC842]">
+						<CardTitle className="text-2xl font-bold text-purple-600 dark:text-purple-400">
 							{summary.name}
 						</CardTitle>
 					</CardHeader>

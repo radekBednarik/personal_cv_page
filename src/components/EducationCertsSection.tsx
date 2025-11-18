@@ -25,7 +25,7 @@ export function EducationCertsSection({
 			<div className="container mx-auto max-w-4xl">
 				{/* Education Section */}
 				<div className="flex items-center gap-3 mb-8">
-					<GraduationCap className="h-8 w-8 text-[#65B230] dark:text-[#7CC842]" />
+					<GraduationCap className="h-8 w-8 text-purple-600 dark:text-purple-400" />
 					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 						{education.name}
 					</h2>
@@ -40,7 +40,7 @@ export function EducationCertsSection({
 								className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
 							>
 								<CardHeader>
-									<CardTitle className="text-lg text-[#65B230] dark:text-[#7CC842]">
+									<CardTitle className="text-lg text-purple-600 dark:text-purple-400">
 										{item.institution}
 									</CardTitle>
 									<p className="text-sm text-gray-600 dark:text-gray-400">
@@ -68,7 +68,7 @@ export function EducationCertsSection({
 				{certifications.items.length > 0 && (
 					<>
 						<div className="flex items-center gap-3 mb-8">
-							<Award className="h-8 w-8 text-[#65B230] dark:text-[#7CC842]" />
+							<Award className="h-8 w-8 text-purple-600 dark:text-purple-400" />
 							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 								{certifications.name}
 							</h2>
@@ -83,7 +83,7 @@ export function EducationCertsSection({
 										className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
 									>
 										<CardHeader>
-											<CardTitle className="text-lg text-[#65B230] dark:text-[#7CC842]">
+											<CardTitle className="text-lg text-purple-600 dark:text-purple-400">
 												{item.name}
 											</CardTitle>
 											<p className="text-sm text-gray-600 dark:text-gray-400">
@@ -113,7 +113,7 @@ export function EducationCertsSection({
 				{languages.items.length > 0 && (
 					<>
 						<div className="flex items-center gap-3 mb-8">
-							<Languages className="h-8 w-8 text-[#65B230] dark:text-[#7CC842]" />
+							<Languages className="h-8 w-8 text-purple-600 dark:text-purple-400" />
 							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 								{languages.name}
 							</h2>
@@ -128,7 +128,7 @@ export function EducationCertsSection({
 										className="hover:shadow-lg transition-shadow dark:bg-gray-800 dark:border-gray-700"
 									>
 										<CardHeader>
-											<CardTitle className="text-lg text-[#65B230] dark:text-[#7CC842] mb-4">
+											<CardTitle className="text-lg text-purple-600 dark:text-purple-400 mb-4">
 												{item.name}
 											</CardTitle>
 											<div className="space-y-2">
