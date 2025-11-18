@@ -1,67 +1,73 @@
-import { Link } from '@tanstack/react-router'
+import { Github, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-import { useState } from 'react'
-import { Home, Menu, X } from 'lucide-react'
+interface HeaderProps {
+	email: string;
+	githubUrl?: string;
+}
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+export default function Header({ email, githubUrl }: HeaderProps) {
+	const scrollToSection = (id: string) => {
+		const element = document.getElementById(id);
+		if (element) {
+			element.scrollIntoView({ behavior: "smooth" });
+		}
+	};
 
-  return (
-    <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
-          </Link>
-        </h1>
-      </header>
+	return (
+		<header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+			<div className="container mx-auto max-w-6xl flex h-16 items-center justify-between px-4">
+				<nav className="flex gap-6">
+					<button
+						type="button"
+						onClick={() => scrollToSection("profile")}
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+					>
+						About
+					</button>
+					<button
+						type="button"
+						onClick={() => scrollToSection("experience")}
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+					>
+						Experience
+					</button>
+					<button
+						type="button"
+						onClick={() => scrollToSection("skills")}
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+					>
+						Skills
+					</button>
+					<button
+						type="button"
+						onClick={() => scrollToSection("education")}
+						className="text-sm font-medium text-gray-700 hover:text-[#65B230] transition-colors"
+					>
+						Education
+					</button>
+				</nav>
 
-      <aside
-        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-bold">Navigation</h2>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-            aria-label="Close menu"
-          >
-            <X size={24} />
-          </button>
-        </div>
-
-        <nav className="flex-1 p-4 overflow-y-auto">
-          <Link
-            to="/"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <Home size={20} />
-            <span className="font-medium">Home</span>
-          </Link>
-
-          {/* Demo Links Start */}
-
-          {/* Demo Links End */}
-        </nav>
-      </aside>
-    </>
-  )
+				<div className="flex gap-2">
+					{githubUrl && (
+						<Button variant="ghost" size="sm" asChild>
+							<a
+								href={githubUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="Github"
+							>
+								<Github className="h-5 w-5" />
+							</a>
+						</Button>
+					)}
+					<Button variant="ghost" size="sm" asChild>
+						<a href={`mailto:${email}`} aria-label="Email">
+							<Mail className="h-5 w-5" />
+						</a>
+					</Button>
+				</div>
+			</div>
+		</header>
+	);
 }

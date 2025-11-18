@@ -1,0 +1,401 @@
+{
+  "basics": {
+    "name": "Radek Bednařík",
+    "headline": "Senior Test Automation Engineer",
+    "email": "radek.bednarik@tesena.com",
+    "phone": "",
+    "location": "",
+    "url": {
+      "label": "",
+      "href": ""
+    },
+    "customFields": [],
+    "picture": {
+      "url": "https://files.cv.tesena.com/default/cmegrynso0006wrzyb1nmms3p/pictures/ildyujyjb61orac6t2n0pifr.jpg",
+      "size": 64,
+      "aspectRatio": 1,
+      "borderRadius": 0,
+      "effects": {
+        "hidden": false,
+        "border": false,
+        "grayscale": false
+      }
+    }
+  },
+  "sections": {
+    "summary": {
+      "name": "PROFILE",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "summary",
+      "content": "<p>I love coding and test automation. I am primarily interested in front-end, but I have some experience with integration testing as well. I have been working primarily with JavaScript/TypeScript frameworks (Playwright, Cypress, Mocha, etc.). I have proficiency at JavaScript/TypeScript, Python and little bit of Go.</p><p style=\"text-align: justify\">All my coding shenanigans can be found on my <a target=\"_blank\" rel=\"noreferrer noopener\" class=\"Hyperlink SCXW94385296 BCX2\" href=\"https://github.com/radekBednarik\"><u>Github</u></a>.&nbsp;</p>"
+    },
+    "awards": {
+      "name": "COURSES",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "awards",
+      "items": []
+    },
+    "certifications": {
+      "name": "CERTIFICATIONS",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "certifications",
+      "items": [
+        {
+          "id": "rgykm1ztlrqtv2algw70qlf6",
+          "visible": true,
+          "name": "ISTQB Certified Tester Foundation Level",
+          "issuer": "Česká společnost pro jakost",
+          "date": "February 2019",
+          "summary": "<p>Credential ID 00083/19</p>",
+          "url": {
+            "label": "",
+            "href": "https://www.csq.cz/"
+          }
+        }
+      ]
+    },
+    "education": {
+      "name": "EDUCATION",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "education",
+      "items": [
+        {
+          "id": "skyv78vyynddbkdadv6po99g",
+          "visible": true,
+          "institution": "VSB-TU Ostrava",
+          "studyType": "Ph.D",
+          "area": "Economics",
+          "score": "",
+          "date": "2006 - 2012",
+          "summary": "<p>Focused on macroeconomics.</p><p>Title of my thesis was Macroeconomics impacts of dollar exchange rate in advanced economies.</p>",
+          "url": {
+            "label": "",
+            "href": "https://www.ekf.vsb.cz/cs/"
+          }
+        },
+        {
+          "id": "kv4jr3e66ra1aonvfsafb87p",
+          "visible": true,
+          "institution": "VSB-TU Ostrava",
+          "studyType": "Master of Economics",
+          "area": "National Economy",
+          "score": "",
+          "date": "2001 - 2006",
+          "summary": "<p>Finished with summa cum laude and award for the best thesis.</p>",
+          "url": {
+            "label": "",
+            "href": "https://www.ekf.vsb.cz/cs/"
+          }
+        }
+      ]
+    },
+    "experience": {
+      "name": "TESENA EXPERIENCE",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "experience",
+      "items": [
+        {
+          "id": "vjs44fk7p70ynu5sqw7f227g",
+          "visible": true,
+          "company": "Soundtrack.io",
+          "project": "Web application Business and iOS mobile application",
+          "position": "Senior Test Automation Engineer",
+          "location": "",
+          "startDate": "07/2024",
+          "endDate": "",
+          "description": "<p>Build complete E2E automated tests solution for web application.  This includes test data management, test users management, designing and coding the automated tests, maintenance and improvements.</p><p>Test results reporting is done using Github Actions workflows and Report Portal instance. </p><p></p><p>Investigate, improve and enhance the iOS mobile E2E tests using Detox framework.</p>",
+          "responsibilities": [
+            "test automation",
+            "test design",
+            "cooperation with developers"
+          ],
+          "tools": [
+            "Playwright",
+            "Node.js",
+            "Github Actions",
+            "Typescript",
+            "Detox",
+            "React Native",
+            "React"
+          ],
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "xqxovez6a2jwaa2rgh8glqkf",
+          "visible": true,
+          "company": "Komerční banka",
+          "project": "New Digital Internet Banking",
+          "position": "Test Automation Engineer",
+          "location": "",
+          "startDate": "01/2022",
+          "endDate": "03/2024",
+          "description": "<p>As a member of agile team, I have contributed to test design, manual testing, automated testing, with shift to mainly working on automated tests solution.</p><p>Started with Cypress, then created and piloted the Playwright solution which was accepted as template for other teams across the organization. </p><p>Leader of the Frontend test automation guild.</p>",
+          "responsibilities": [
+            "test design",
+            "manual testing",
+            "automation testing",
+            "leader of Playwright implementation",
+            "integration of Playwright with Xray and Grafana"
+          ],
+          "tools": [
+            "Cypress",
+            "Playwright",
+            "Node.js",
+            "Typescript",
+            "Jenkins",
+            "Groovy",
+            "Docker",
+            "Xray",
+            "Jira",
+            "Grafana",
+            "k6.io"
+          ],
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "oi4aienut3fepx0jped6cbnr",
+          "visible": true,
+          "company": "Skoda Auto",
+          "project": "S-Drive",
+          "position": "Test engineer",
+          "location": "",
+          "startDate": "03/2019",
+          "endDate": "12/2021",
+          "description": "<p>Started as junior test engineer, with reponsibility for test execution on browsers and mobile devices.</p><p>Later, with project switch to agile, I have added to my role test design, defect management and automation of some integration tests.</p><p>Was responsible for designing and creation of E2E tests for cross-national implementation of user consent and tracking solution.</p>",
+          "responsibilities": [
+            "manual testing",
+            "automated testing",
+            "defect management",
+            "cooperation with devs and other stakeholders"
+          ],
+          "tools": [
+            "Jira",
+            "Zephyr",
+            "Jenkins",
+            "Webdriver.io",
+            "Mocha",
+            "Playwrigth",
+            "SQL",
+            "Python",
+            "behave (cucumber)"
+          ],
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "volunteer": {
+      "name": "VOLUNTEERING",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "volunteer",
+      "items": []
+    },
+    "interests": {
+      "name": "INTERESTS",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "interests",
+      "items": []
+    },
+    "languages": {
+      "name": "LANGUAGES",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "languages",
+      "items": [
+        {
+          "id": "auvytbknp8vppggx27w89vyr",
+          "visible": true,
+          "name": "Czech",
+          "description": "",
+          "level": 5
+        },
+        {
+          "id": "cff4njkitt69p3e6ma0ly455",
+          "visible": true,
+          "name": "English",
+          "description": "",
+          "level": 4
+        }
+      ]
+    },
+    "profiles": {
+      "name": "PROFILES",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "profiles",
+      "items": []
+    },
+    "projects": {
+      "name": "OTHER EXPERIENCE",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "projects",
+      "items": [
+        {
+          "id": "h6f80fmvv280nlbmgr9eshyy",
+          "visible": true,
+          "company": "EGAP, a.s.",
+          "project": "",
+          "position": "PR specialist",
+          "location": "",
+          "startDate": "03/2016",
+          "endDate": "08/2018",
+          "description": "<ul><li><p>Project leader of new company website implementation</p></li><li><p>Project leader of new logo manual implementation</p></li><li><p>Written content creator</p></li><li><p>Data and press-releases preparation for company spokesman</p></li><li><p>Budget monitoring</p></li></ul>",
+          "responsibilities": [
+            "budget monitoring",
+            "project leader",
+            "content creator"
+          ],
+          "tools": [],
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "tfhmrwcp5ardepoiu7fgdaln",
+          "visible": true,
+          "company": "Hospodářské noviny",
+          "project": "",
+          "position": "Staff writer",
+          "location": "",
+          "startDate": "05/2013",
+          "endDate": "11/2015",
+          "description": "<ul><li><p>staff writer in the economic section of the daily</p></li><li><p>focused on macroeconomics</p></li></ul>",
+          "responsibilities": [],
+          "tools": [],
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "publications": {
+      "name": "PUBLICATIONS",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "publications",
+      "items": []
+    },
+    "references": {
+      "name": "REFERENCES",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "references",
+      "items": []
+    },
+    "skills": {
+      "name": "SKILLS",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "skills",
+      "items": [
+        {
+          "id": "vsed33v327fk8jgkwbjanrqm",
+          "visible": true,
+          "name": "Programming languages",
+          "description": "",
+          "level": 0,
+          "keywords": ["Typescript", "JavaScript", "Python", "Go", "SQL"]
+        },
+        {
+          "id": "cvp43aqev8cu7ov1dnebjawq",
+          "visible": true,
+          "name": "Test automation tooling",
+          "description": "",
+          "level": 0,
+          "keywords": [
+            "Node.js",
+            "Mocha",
+            "Playwright",
+            "Jest",
+            "Postman",
+            "Python",
+            "behave",
+            "pytest",
+            "k6.io",
+            "Github Actions",
+            "Jenkins",
+            "Docker"
+          ]
+        },
+        {
+          "id": "kuhise2jz9us7qtwi5rubwn7",
+          "visible": true,
+          "name": "Other tooling",
+          "description": "",
+          "level": 0,
+          "keywords": ["Jira", "Zephyr", "Xray", "Linear", "Grafana"]
+        }
+      ]
+    },
+    "custom": {}
+  },
+  "metadata": {
+    "template": "tesena_en",
+    "layout": [
+      [
+        ["summary", "experience", "projects", "references", "publications"],
+        ["skills", "languages", "education", "certifications", "awards"]
+      ]
+    ],
+    "css": {
+      "value": "* {\n\toutline: 1px solid #000;\n\toutline-offset: 4px;\n}",
+      "visible": false
+    },
+    "page": {
+      "margin": 18,
+      "format": "a4",
+      "options": {
+        "breakLine": true,
+        "pageNumbers": true
+      }
+    },
+    "theme": {
+      "background": "#ffffff",
+      "text": "#5c6168",
+      "primary": "#65B230"
+    },
+    "typography": {
+      "font": {
+        "family": "Montserrat",
+        "subset": "latin",
+        "variants": ["regular", "italic", "600"],
+        "size": 14
+      },
+      "lineHeight": 1.3,
+      "hideIcons": false,
+      "underlineLinks": true
+    },
+    "notes": ""
+  }
+}
