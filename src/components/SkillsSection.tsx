@@ -1,4 +1,5 @@
 import { Code2 } from "lucide-react";
+import { ToolBadge } from "@/components/ToolBadge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { SkillsSection as SkillsSectionType } from "@/lib/resume-types";
@@ -40,12 +41,11 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
 								<CardContent>
 									<div className="flex flex-wrap gap-2">
 										{item.keywords.map((keyword) => (
-											<Badge
+											<ToolBadge
 												key={`${item.id}-keyword-${keyword}`}
+												tool={keyword}
 												className="bg-purple-600 hover:bg-purple-600/90 dark:bg-purple-400 dark:hover:bg-purple-400/90"
-											>
-												{keyword}
-											</Badge>
+											/>
 										))}
 									</div>
 								</CardContent>

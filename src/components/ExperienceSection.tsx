@@ -5,6 +5,7 @@ import {
 	Newspaper,
 	TestTube,
 } from "lucide-react";
+import { ToolBadge } from "@/components/ToolBadge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type {
@@ -144,12 +145,11 @@ export function ExperienceSection({
 											</h4>
 											<div className="flex flex-wrap gap-2">
 												{item.tools.map((tool) => (
-													<Badge
+													<ToolBadge
 														key={`${item.id}-tool-${tool}`}
+														tool={tool}
 														className="bg-purple-600 hover:bg-purple-600/90 dark:bg-purple-400 dark:hover:bg-purple-400/90"
-													>
-														{tool}
-													</Badge>
+													/>
 												))}
 											</div>
 										</div>
