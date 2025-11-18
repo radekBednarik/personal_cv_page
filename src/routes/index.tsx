@@ -3,7 +3,6 @@ import { EducationCertsSection } from "@/components/EducationCertsSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import Header from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
-import { MetricsSection } from "@/components/MetricsSection";
 import { ProfileSection } from "@/components/ProfileSection";
 import { SkillsSection } from "@/components/SkillsSection";
 import { TestingPhilosophySection } from "@/components/TestingPhilosophySection";
@@ -24,7 +23,6 @@ function App() {
 				linkedinUrl="https://www.linkedin.com/in/bednarikradek/"
 			/>
 			<HeroSection basics={resume.basics} />
-			<MetricsSection />
 			<TestingPhilosophySection />
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="profile">

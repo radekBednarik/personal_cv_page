@@ -1,6 +1,5 @@
 import { CheckCircle2, Code2, FlaskConical, Linkedin } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Basics } from "@/lib/resume-types";
 
@@ -9,13 +8,6 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ basics }: HeroSectionProps) {
-	const toolIcons = [
-		{ name: "Playwright", color: "bg-success/10 text-success" },
-		{ name: "Cypress", color: "bg-info/10 text-info" },
-		{ name: "TypeScript", color: "bg-purple-600/10 text-purple-600" },
-		{ name: "Jest", color: "bg-warning/10 text-warning" },
-	];
-
 	return (
 		<section className="relative bg-gradient-to-b from-purple-600/10 to-transparent dark:from-purple-600/20 dark:to-gray-900/50 py-16 px-4 overflow-hidden">
 			{/* Floating background elements */}
@@ -56,19 +48,6 @@ export function HeroSection({ basics }: HeroSectionProps) {
 						<p className="text-xl md:text-2xl text-purple-600 dark:text-purple-400 font-semibold mb-4">
 							{basics.headline}
 						</p>
-
-						{/* Tool Badges */}
-						<div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
-							{toolIcons.map((tool) => (
-								<Badge
-									key={tool.name}
-									className={`${tool.color} border border-current/20 hover:scale-110 transition-transform`}
-									variant="secondary"
-								>
-									{tool.name}
-								</Badge>
-							))}
-						</div>
 
 						<div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
 							<Button
