@@ -73,7 +73,7 @@ export function ExperienceSection({
 						.map((item) => (
 							<Card
 								key={item.id}
-								className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300"
+								className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
 							>
 								{/* Timeline indicator */}
 								<div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 dark:bg-purple-400" />
@@ -83,7 +83,7 @@ export function ExperienceSection({
 									<div className="flex justify-end mb-2">
 										<Badge className="bg-success hover:bg-success text-success-foreground flex items-center gap-1">
 											<CheckCircle2 className="h-3 w-3" />
-											Quality Assured
+											PASSED
 										</Badge>
 									</div>
 
@@ -175,7 +175,7 @@ export function ExperienceSection({
 								.map((item) => (
 									<Card
 										key={item.id}
-										className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700"
+										className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
 									>
 										<div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-400 dark:bg-gray-600" />
 
