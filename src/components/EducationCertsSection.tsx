@@ -69,7 +69,8 @@ export function EducationCertsSection({
 				{/* Certifications Section */}
 				{certifications.items.length > 0 && (
 					<>
-						<div className="flex items-center gap-3 mb-8">
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
+						<div id="certifications" className="flex items-center gap-3 mb-8">
 							<Award className="h-8 w-8 text-purple-600 dark:text-purple-400" />
 							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 								{certifications.name}
@@ -115,7 +116,8 @@ export function EducationCertsSection({
 				{/* Languages Section */}
 				{languages.items.length > 0 && (
 					<>
-						<div className="flex items-center gap-3 mb-8">
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
+						<div id="languages" className="flex items-center gap-3 mb-8">
 							<Languages className="h-8 w-8 text-purple-600 dark:text-purple-400" />
 							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
 								{languages.name}

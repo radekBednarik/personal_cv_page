@@ -23,7 +23,10 @@ function App() {
 				linkedinUrl="https://www.linkedin.com/in/bednarikradek/"
 			/>
 			<HeroSection basics={resume.basics} />
-			<TestingPhilosophySection />
+			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
+			<div id="testing-philosophy">
+				<TestingPhilosophySection />
+			</div>
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="profile">
 				<ProfileSection summary={resume.sections.summary} />
