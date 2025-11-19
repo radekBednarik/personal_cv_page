@@ -68,7 +68,7 @@ export function ToolBadge({
 					className={`${className} cursor-pointer group`}
 				>
 					{tool}
-					<ExternalLink className="ml-1 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+					<ExternalLink className="ml-1 h-3 w-3" />
 				</Badge>
 			</a>
 		);
