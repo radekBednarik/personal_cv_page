@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { BugHunter } from "@/components/BugHunter";
 import { EducationCertsSection } from "@/components/EducationCertsSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import Header from "@/components/Header";
@@ -58,6 +59,9 @@ function App() {
 					reserved.
 				</p>
 			</footer>
+
+			{/* Bug Hunter Game */}
+			<BugHunter />
 		</div>
 	);
 }

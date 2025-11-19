@@ -223,4 +223,37 @@ code {
   .animation-delay-300 {
     animation-delay: 0.3s;
   }
+
+  @keyframes bugCrawl {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(
+        calc(var(--bug-end-x) - var(--bug-start-x, 0px)),
+        calc(var(--bug-end-y) - var(--bug-start-y, 0px))
+      ) rotate(360deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes bugSquash {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2, 0.8) rotate(90deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(0) rotate(180deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-bugSquash {
+    animation: bugSquash 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
 }
