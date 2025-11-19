@@ -10,6 +10,8 @@ interface BugState {
 	endX: number;
 	endY: number;
 	duration: number;
+	squashX?: number;
+	squashY?: number;
 }
 
 export function BugHunter() {
@@ -115,14 +117,19 @@ export function BugHunter() {
 	);
 
 	// Handle bug click/tap
-	const handleBugClick = () => {
+	const handleBugClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		if (bugState.isSquashing) return;
+
+		// Get the bug's current position in the viewport
+		const rect = event.currentTarget.getBoundingClientRect();
+		const squashX = rect.left;
+		const squashY = rect.top;
 
 		// Trigger haptic feedback on mobile
 		triggerHaptic(30);
 
-		// Start squashing animation
-		setBugState((prev) => ({ ...prev, isSquashing: true }));
+		// Start squashing animation with captured position
+		setBugState((prev) => ({ ...prev, isSquashing: true, squashX, squashY }));
 
 		// Remove bug after squash animation completes
 		setTimeout(() => {
@@ -150,35 +157,68 @@ export function BugHunter() {
 	if (!bugState.isVisible) return null;
 
 	return (
-		<button
-			type="button"
-			onClick={handleBugClick}
-			onKeyDown={(e) => {
-				if (e.key === "Enter" || e.key === " ") {
-					handleBugClick();
-				}
-			}}
-			className={`fixed cursor-pointer ${
-				bugState.isSquashing ? "animate-bugSquash" : ""
-			}`}
+		<div
+			className="fixed"
 			style={
 				{
-					left: `${bugState.startX}px`,
-					top: `${bugState.startY}px`,
+					left: bugState.isSquashing
+						? `${bugState.squashX}px`
+						: `${bugState.startX}px`,
+					top: bugState.isSquashing
+						? `${bugState.squashY}px`
+						: `${bugState.startY}px`,
 					zIndex: 1000,
 					animation: bugState.isSquashing
-						? "bugSquash 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards"
+						? undefined
 						: `bugCrawl ${bugState.duration}ms linear forwards`,
+					"--bug-start-x": `${bugState.startX}px`,
+					"--bug-start-y": `${bugState.startY}px`,
 					"--bug-end-x": `${bugState.endX}px`,
 					"--bug-end-y": `${bugState.endY}px`,
 				} as React.CSSProperties
 			}
-			aria-label="Squash the bug"
 		>
-			<Bug
-				className="text-gray-700 dark:text-gray-300 w-8 h-8 md:w-10 md:h-10"
-				strokeWidth={1.5}
-			/>
-		</button>
+			<button
+				type="button"
+				onClick={handleBugClick}
+				onKeyDown={(e) => {
+					if (e.key === "Enter" || e.key === " ") {
+						// For keyboard, create a mock event with the current target
+						const mockEvent = {
+							currentTarget: e.currentTarget,
+						} as React.MouseEvent<HTMLButtonElement>;
+						handleBugClick(mockEvent);
+					}
+				}}
+				className="cursor-crosshair relative"
+				aria-label="Squash the bug"
+			>
+				{!bugState.isSquashing ? (
+					<Bug
+						className="text-gray-700 dark:text-gray-300 w-8 h-8 md:w-10 md:h-10"
+						strokeWidth={1.5}
+					/>
+				) : (
+					<div className="relative">
+						{/* Squashed bug */}
+						<Bug
+							className="text-gray-700 dark:text-gray-300 w-8 h-8 md:w-10 md:h-10 animate-bugSquash"
+							strokeWidth={1.5}
+						/>
+						{/* Splat effect - multiple circles expanding */}
+						<div className="absolute inset-0 flex items-center justify-center">
+							<div className="absolute w-4 h-4 bg-red-500/40 rounded-full animate-splatExpand" />
+							<div className="absolute w-6 h-6 bg-red-400/30 rounded-full animate-splatExpand animation-delay-50" />
+							<div className="absolute w-8 h-8 bg-red-300/20 rounded-full animate-splatExpand animation-delay-100" />
+						</div>
+						{/* Particle effects */}
+						<div className="absolute top-0 left-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-1" />
+						<div className="absolute top-0 right-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-2" />
+						<div className="absolute bottom-0 left-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-3" />
+						<div className="absolute bottom-0 right-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-4" />
+					</div>
+				)}
+			</button>
+		</div>
 	);
 }
