@@ -1,6 +1,7 @@
 import { CheckCircle2, Code2, FlaskConical, Linkedin } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { triggerHaptic } from "@/lib/haptics";
 import type { Basics } from "@/lib/resume-types";
 
 interface HeroSectionProps {
@@ -59,6 +60,7 @@ export function HeroSection({ basics }: HeroSectionProps) {
 									href="https://www.linkedin.com/in/bednarikradek/"
 									target="_blank"
 									rel="noopener noreferrer"
+									onTouchStart={() => triggerHaptic()}
 								>
 									<Linkedin className="mr-2 h-4 w-4" />
 									Get in Touch
