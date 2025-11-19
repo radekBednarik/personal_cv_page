@@ -85,11 +85,15 @@ export function EducationCertsSection({
 										key={item.id}
 										className="relative hover:shadow-lg transition-all duration-300 hover:scale-[1.02] dark:bg-gray-800 dark:border-gray-700 border-2 hover:border-success/50 dark:hover:border-success/50"
 									>
-										<div className="absolute top-4 right-4">
-											<CheckCircle2 className="h-5 w-5 text-success" />
-										</div>
 										<CardHeader>
-											<CardTitle className="text-lg text-purple-600 dark:text-purple-400 pr-8">
+											{/* Quality Badge */}
+											<div className="flex justify-end mb-2">
+												<Badge className="bg-success hover:bg-success text-success-foreground flex items-center gap-1">
+													<CheckCircle2 className="h-3 w-3" />
+													PASSED
+												</Badge>
+											</div>
+											<CardTitle className="text-lg text-purple-600 dark:text-purple-400">
 												{item.name}
 											</CardTitle>
 											<p className="text-sm text-gray-600 dark:text-gray-400">

@@ -29,7 +29,7 @@ function App() {
 			</div>
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="profile">
-				<ProfileSection summary={resume.sections.summary} />
+				<ProfileSection />
 			</div>
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="experience">
