@@ -22,7 +22,14 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 		triggerHaptic(); // Trigger haptic feedback on mobile devices
 		const element = document.getElementById(id);
 		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
+			const headerOffset = 64; // Height of sticky header (h-16 = 4rem = 64px)
+			const elementPosition = element.getBoundingClientRect().top;
+			const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: "smooth",
+			});
 		}
 		setIsOpen(false);
 	};
