@@ -1,5 +1,5 @@
 import { Bug } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { triggerHaptic } from "@/lib/haptics";
 
 interface BugState {
@@ -80,6 +80,11 @@ export function BugHunter() {
 		[],
 	);
 
+	const scoreAnimationTimeoutRef = useRef<number | null>(null);
+	const floatingOneTimeoutRef = useRef<number | null>(null);
+	const squashTimeoutRef = useRef<number | null>(null);
+	const hasSpawnedOnceRef = useRef(false);
+
 	// Spawn a new bug
 	const spawnBug = useCallback(() => {
 		const start = getRandomEdgePosition();
@@ -95,29 +100,7 @@ export function BugHunter() {
 			endY: end.y,
 			duration,
 		});
-
-		// Auto-remove bug after it crosses viewport
-		setTimeout(() => {
-			setBugState((prev) =>
-				prev.isVisible && !prev.isSquashing
-					? { ...prev, isVisible: false }
-					: prev,
-			);
-		}, duration);
 	}, [getRandomEdgePosition, getOppositeEdgePosition]);
-
-	// Schedule next bug spawn (5s initial, 10s subsequent)
-	const scheduleNextBug = useCallback(
-		(isInitial = false) => {
-			// 5s initial, 10s subsequent for both dev and production
-			const delay = isInitial ? 5000 : 10000;
-
-			setTimeout(() => {
-				spawnBug();
-			}, delay);
-		},
-		[spawnBug],
-	);
 
 	// Handle bug click/tap
 	const handleBugClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -137,11 +120,17 @@ export function BugHunter() {
 		setShowFloatingOne(true);
 
 		// Reset animations after they complete
-		setTimeout(() => {
+		if (scoreAnimationTimeoutRef.current) {
+			clearTimeout(scoreAnimationTimeoutRef.current);
+		}
+		scoreAnimationTimeoutRef.current = window.setTimeout(() => {
 			setShowScoreAnimation(false);
 		}, 400);
 
-		setTimeout(() => {
+		if (floatingOneTimeoutRef.current) {
+			clearTimeout(floatingOneTimeoutRef.current);
+		}
+		floatingOneTimeoutRef.current = window.setTimeout(() => {
 			setShowFloatingOne(false);
 		}, 1000);
 
@@ -149,27 +138,41 @@ export function BugHunter() {
 		setBugState((prev) => ({ ...prev, isSquashing: true, squashX, squashY }));
 
 		// Remove bug after squash animation completes
-		setTimeout(() => {
+		if (squashTimeoutRef.current) {
+			clearTimeout(squashTimeoutRef.current);
+		}
+		squashTimeoutRef.current = window.setTimeout(() => {
 			setBugState((prev) => ({ ...prev, isVisible: false }));
 		}, 300);
 	};
 
-	// Initial setup and bug lifecycle management
+	// Initial bug spawn
 	useEffect(() => {
-		// Schedule first bug (with isInitial flag)
-		scheduleNextBug(true);
+		spawnBug();
+	}, [spawnBug]);
 
-		return () => {
-			// Cleanup timers on unmount
-		};
-	}, [scheduleNextBug]);
-
-	// Schedule next bug when current one disappears
+	// Spawn next bug when the previous one disappears
 	useEffect(() => {
-		if (!bugState.isVisible) {
-			scheduleNextBug(false);
+		if (!bugState.isVisible && hasSpawnedOnceRef.current) {
+			spawnBug();
 		}
-	}, [bugState.isVisible, scheduleNextBug]);
+		hasSpawnedOnceRef.current = bugState.isVisible;
+	}, [bugState.isVisible, spawnBug]);
+
+	// Cleanup pending timeouts on unmount
+	useEffect(() => {
+		return () => {
+			if (scoreAnimationTimeoutRef.current !== null) {
+				clearTimeout(scoreAnimationTimeoutRef.current);
+			}
+			if (floatingOneTimeoutRef.current !== null) {
+				clearTimeout(floatingOneTimeoutRef.current);
+			}
+			if (squashTimeoutRef.current !== null) {
+				clearTimeout(squashTimeoutRef.current);
+			}
+		};
+	}, []);
 
 	return (
 		<>
@@ -177,6 +180,15 @@ export function BugHunter() {
 			{bugState.isVisible && (
 				<div
 					className="fixed"
+					onAnimationEnd={() => {
+						// Bug finished traveling across the viewport without being squashed
+						setBugState((prev) => {
+							if (!prev.isVisible || prev.isSquashing) {
+								return prev;
+							}
+							return { ...prev, isVisible: false };
+						});
+					}}
 					style={
 						{
 							left: bugState.isSquashing
