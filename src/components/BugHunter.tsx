@@ -24,6 +24,9 @@ export function BugHunter() {
 		endY: 0,
 		duration: 0,
 	});
+	const [score, setScore] = useState(0);
+	const [showScoreAnimation, setShowScoreAnimation] = useState(false);
+	const [showFloatingOne, setShowFloatingOne] = useState(false);
 
 	// Generate random position on viewport edges
 	const getRandomEdgePosition = useCallback((): {
@@ -128,6 +131,20 @@ export function BugHunter() {
 		// Trigger haptic feedback on mobile
 		triggerHaptic(30);
 
+		// Increment score and trigger animations
+		setScore((prev) => prev + 1);
+		setShowScoreAnimation(true);
+		setShowFloatingOne(true);
+
+		// Reset animations after they complete
+		setTimeout(() => {
+			setShowScoreAnimation(false);
+		}, 400);
+
+		setTimeout(() => {
+			setShowFloatingOne(false);
+		}, 1000);
+
 		// Start squashing animation with captured position
 		setBugState((prev) => ({ ...prev, isSquashing: true, squashX, squashY }));
 
@@ -154,71 +171,110 @@ export function BugHunter() {
 		}
 	}, [bugState.isVisible, scheduleNextBug]);
 
-	if (!bugState.isVisible) return null;
-
 	return (
-		<div
-			className="fixed"
-			style={
-				{
-					left: bugState.isSquashing
-						? `${bugState.squashX}px`
-						: `${bugState.startX}px`,
-					top: bugState.isSquashing
-						? `${bugState.squashY}px`
-						: `${bugState.startY}px`,
-					zIndex: 1000,
-					animation: bugState.isSquashing
-						? undefined
-						: `bugCrawl ${bugState.duration}ms linear forwards`,
-					"--bug-start-x": `${bugState.startX}px`,
-					"--bug-start-y": `${bugState.startY}px`,
-					"--bug-end-x": `${bugState.endX}px`,
-					"--bug-end-y": `${bugState.endY}px`,
-				} as React.CSSProperties
-			}
-		>
-			<button
-				type="button"
-				onClick={handleBugClick}
-				onKeyDown={(e) => {
-					if (e.key === "Enter" || e.key === " ") {
-						// For keyboard, create a mock event with the current target
-						const mockEvent = {
-							currentTarget: e.currentTarget,
-						} as React.MouseEvent<HTMLButtonElement>;
-						handleBugClick(mockEvent);
+		<>
+			{/* Bug crawling across screen */}
+			{bugState.isVisible && (
+				<div
+					className="fixed"
+					style={
+						{
+							left: bugState.isSquashing
+								? `${bugState.squashX}px`
+								: `${bugState.startX}px`,
+							top: bugState.isSquashing
+								? `${bugState.squashY}px`
+								: `${bugState.startY}px`,
+							zIndex: 1000,
+							animation: bugState.isSquashing
+								? undefined
+								: `bugCrawl ${bugState.duration}ms linear forwards`,
+							"--bug-start-x": `${bugState.startX}px`,
+							"--bug-start-y": `${bugState.startY}px`,
+							"--bug-end-x": `${bugState.endX}px`,
+							"--bug-end-y": `${bugState.endY}px`,
+						} as React.CSSProperties
 					}
-				}}
-				className="cursor-crosshair relative"
-				aria-label="Squash the bug"
-			>
-				{!bugState.isSquashing ? (
-					<Bug
-						className="text-gray-700 dark:text-gray-300 w-8 h-8 md:w-10 md:h-10"
-						strokeWidth={1.5}
-					/>
-				) : (
-					<div className="relative">
-						{/* Squashed bug */}
-						<Bug
-							className="text-gray-700 dark:text-gray-300 w-8 h-8 md:w-10 md:h-10 animate-bugSquash"
-							strokeWidth={1.5}
-						/>
-						{/* Splat effect - multiple circles expanding */}
-						<div className="absolute inset-0 flex items-center justify-center">
-							<div className="absolute w-4 h-4 bg-red-500/40 rounded-full animate-splatExpand" />
-							<div className="absolute w-6 h-6 bg-red-400/30 rounded-full animate-splatExpand animation-delay-50" />
-							<div className="absolute w-8 h-8 bg-red-300/20 rounded-full animate-splatExpand animation-delay-100" />
+				>
+					<button
+						type="button"
+						onClick={handleBugClick}
+						onKeyDown={(e) => {
+							if (e.key === "Enter" || e.key === " ") {
+								// For keyboard, create a mock event with the current target
+								const mockEvent = {
+									currentTarget: e.currentTarget,
+								} as React.MouseEvent<HTMLButtonElement>;
+								handleBugClick(mockEvent);
+							}
+						}}
+						className="cursor-crosshair relative"
+						aria-label="Squash the bug"
+					>
+						{!bugState.isSquashing ? (
+							<Bug
+								className="text-gray-700 dark:text-gray-300 w-8 h-8 md:w-10 md:h-10"
+								strokeWidth={1.5}
+							/>
+						) : (
+							<div className="relative">
+								{/* Squashed bug */}
+								<Bug
+									className="text-gray-700 dark:text-gray-300 w-8 h-8 md:w-10 md:h-10 animate-bugSquash"
+									strokeWidth={1.5}
+								/>
+								{/* Splat effect - multiple circles expanding */}
+								<div className="absolute inset-0 flex items-center justify-center">
+									<div className="absolute w-4 h-4 bg-red-500/40 rounded-full animate-splatExpand" />
+									<div className="absolute w-6 h-6 bg-red-400/30 rounded-full animate-splatExpand animation-delay-50" />
+									<div className="absolute w-8 h-8 bg-red-300/20 rounded-full animate-splatExpand animation-delay-100" />
+								</div>
+								{/* Particle effects */}
+								<div className="absolute top-0 left-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-1" />
+								<div className="absolute top-0 right-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-2" />
+								<div className="absolute bottom-0 left-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-3" />
+								<div className="absolute bottom-0 right-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-4" />
+							</div>
+						)}
+					</button>
+				</div>
+			)}
+
+			{/* Score display in lower left corner */}
+			{score > 0 && (
+				<div className="fixed bottom-4 left-4 z-50">
+					<div className="bg-gray-800/90 dark:bg-gray-700/90 backdrop-blur-sm text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-3">
+						{/* Squashed bug icon with purple crossed circle */}
+						<div className="relative flex items-center justify-center w-10 h-10">
+							<Bug className="w-7 h-7 text-gray-300" strokeWidth={2.5} />
+							<svg
+								viewBox="0 0 24 24"
+								className="absolute inset-0 w-full h-full text-purple-600 dark:text-purple-400"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth={2}
+								role="img"
+								aria-label="Squashed bug indicator"
+							>
+								<circle cx="12" cy="12" r="11" />
+								<line x1="5" y1="5" x2="19" y2="19" />
+							</svg>
 						</div>
-						{/* Particle effects */}
-						<div className="absolute top-0 left-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-1" />
-						<div className="absolute top-0 right-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-2" />
-						<div className="absolute bottom-0 left-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-3" />
-						<div className="absolute bottom-0 right-0 w-2 h-2 bg-gray-600 rounded-full animate-particle-4" />
+						<span
+							className={`text-2xl font-bold ${showScoreAnimation ? "animate-score-increment" : ""}`}
+						>
+							{score}
+						</span>
 					</div>
-				)}
-			</button>
-		</div>
+
+					{/* Floating +1 animation */}
+					{showFloatingOne && (
+						<div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 animate-float-up">
+							<span className="text-green-500 text-3xl font-bold">+1</span>
+						</div>
+					)}
+				</div>
+			)}
+		</>
 	);
 }
