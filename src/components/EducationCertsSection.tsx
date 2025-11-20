@@ -25,12 +25,22 @@ export function EducationCertsSection({
 	languages,
 }: EducationCertsSectionProps) {
 	return (
-		<section className="py-12 px-4 bg-gray-50 dark:bg-gray-900">
+		<section
+			className="py-12 px-4 bg-gray-50 dark:bg-gray-900"
+			aria-labelledby="education-heading"
+		>
 			<div className="container mx-auto max-w-4xl">
 				{/* Education Section */}
 				<div className="flex items-center gap-3 mb-8">
-					<GraduationCap className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+					<GraduationCap
+						className="h-8 w-8 text-purple-600 dark:text-purple-400"
+						aria-hidden="true"
+					/>
+					{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
+					<h2
+						id="education-heading"
+						className="text-3xl font-bold text-gray-900 dark:text-gray-100 uppercase"
+					>
 						{education.name}
 					</h2>
 				</div>
@@ -69,10 +79,13 @@ export function EducationCertsSection({
 				{/* Certifications Section */}
 				{certifications.items.length > 0 && (
 					<>
-						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
 						<div id="certifications" className="flex items-center gap-3 mb-8">
-							<Award className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+							<Award
+								className="h-8 w-8 text-purple-600 dark:text-purple-400"
+								aria-hidden="true"
+							/>
+							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 uppercase">
 								{certifications.name}
 							</h2>
 						</div>
@@ -120,10 +133,13 @@ export function EducationCertsSection({
 				{/* Languages Section */}
 				{languages.items.length > 0 && (
 					<>
-						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
 						<div id="languages" className="flex items-center gap-3 mb-8">
-							<Languages className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+							<Languages
+								className="h-8 w-8 text-purple-600 dark:text-purple-400"
+								aria-hidden="true"
+							/>
+							<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 uppercase">
 								{languages.name}
 							</h2>
 						</div>
@@ -152,7 +168,14 @@ export function EducationCertsSection({
 														{item.level}/5
 													</Badge>
 												</div>
-												<div className="h-2 w-full overflow-hidden rounded-full bg-purple-100 dark:bg-gray-700">
+												<div
+													className="h-2 w-full overflow-hidden rounded-full bg-purple-100 dark:bg-gray-700"
+													role="progressbar"
+													aria-label={`${item.name} proficiency`}
+													aria-valuenow={item.level}
+													aria-valuemin={0}
+													aria-valuemax={5}
+												>
 													<div
 														className="h-full bg-purple-600 dark:bg-purple-400 transition-all"
 														style={{ width: `${(item.level / 5) * 100}%` }}

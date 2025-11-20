@@ -1,5 +1,5 @@
 import { Github, Linkedin, Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
@@ -17,6 +17,23 @@ interface HeaderProps {
 
 export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [scrollProgress, setScrollProgress] = useState(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const windowHeight = window.innerHeight;
+			const documentHeight = document.documentElement.scrollHeight;
+			const scrollTop = window.scrollY;
+			const scrollableHeight = documentHeight - windowHeight;
+			const progress = (scrollTop / scrollableHeight) * 100;
+			setScrollProgress(Math.min(100, Math.max(0, progress)));
+		};
+
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		handleScroll(); // Initialize on mount
+
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	const scrollToSection = (id: string) => {
 		triggerHaptic(); // Trigger haptic feedback on mobile devices
@@ -46,7 +63,7 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800 dark:supports-[backdrop-filter]:bg-gray-900/60">
-			<div className="container mx-auto max-w-6xl flex h-16 items-center justify-between px-4">
+			<div className="container mx-auto max-w-6xl flex h-16 items-center justify-between px-4 relative">
 				{/* Mobile Menu */}
 				<Sheet open={isOpen} onOpenChange={setIsOpen}>
 					<SheetTrigger asChild>
@@ -67,7 +84,10 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 						<SheetHeader>
 							<SheetTitle className="dark:text-gray-100">Navigation</SheetTitle>
 						</SheetHeader>
-						<nav className="flex flex-col gap-4 mt-8 px-4">
+						<nav
+							className="flex flex-col gap-4 mt-8 px-4"
+							aria-label="Mobile navigation"
+						>
 							{navItems.map((item) => (
 								<button
 									key={item.id}
@@ -83,7 +103,7 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 				</Sheet>
 
 				{/* Desktop Navigation */}
-				<nav className="hidden md:flex gap-6">
+				<nav className="hidden md:flex gap-6" aria-label="Main navigation">
 					{navItems.map((item) => (
 						<button
 							key={item.id}
@@ -134,6 +154,18 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 						</Button>
 					)}
 				</div>
+			</div>
+			{/* Scroll Progress Bar */}
+			<div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-200 dark:bg-gray-800">
+				<div
+					className="h-full bg-purple-600 dark:bg-purple-400 transition-all duration-150 ease-out"
+					style={{ width: `${scrollProgress}%` }}
+					aria-label={`Page scroll progress: ${Math.round(scrollProgress)}%`}
+					role="progressbar"
+					aria-valuenow={Math.round(scrollProgress)}
+					aria-valuemin={0}
+					aria-valuemax={100}
+				/>
 			</div>
 		</header>
 	);
