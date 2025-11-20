@@ -55,8 +55,16 @@ function App() {
 			{/* Footer */}
 			<footer className="py-8 px-4 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white text-center">
 				<p className="text-sm">
-					© {new Date().getFullYear()} {resume.basics.name}. All rights
-					reserved.
+					© {new Date().getFullYear()}{" "}
+					<a
+						href="https://github.com/radekBednarik/personal_cv_page"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-block text-purple-600 dark:text-purple-400 font-semibold transition-colors transition-transform duration-200 hover:text-purple-700 dark:hover:text-purple-300 hover:scale-105"
+					>
+						{resume.basics.name}
+					</a>
+					. All rights reserved.
 				</p>
 			</footer>
 
