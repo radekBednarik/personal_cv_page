@@ -7,7 +7,7 @@ export function ProfileSection() {
 			<div className="container mx-auto max-w-4xl">
 				<div className="flex items-center gap-3 mb-8">
 					<User className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 uppercase">
 						About me
 					</h2>
 				</div>

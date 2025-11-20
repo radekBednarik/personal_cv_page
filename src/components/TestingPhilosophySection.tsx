@@ -39,7 +39,7 @@ export function TestingPhilosophySection() {
 		<section className="py-12 px-4 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-900">
 			<div className="container mx-auto max-w-4xl">
 				<div className="text-center mb-8">
-					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3 uppercase">
 						Testing Philosophy
 					</h2>
 					<p className="text-gray-600 dark:text-gray-400">
