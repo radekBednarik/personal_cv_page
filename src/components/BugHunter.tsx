@@ -423,14 +423,17 @@ export function BugHunter() {
 						}
 					}}
 				>
-					<DialogContent aria-label="New bug hunting rank unlocked">
+					<DialogContent
+						aria-label="New bug hunting rank unlocked"
+						className="bg-card text-card-foreground border border-border shadow-lg dark:border-purple-500/40"
+					>
 						<DialogTitle className="mb-2 text-center">
 							New QA rank unlocked!
 						</DialogTitle>
-						<DialogDescription className="space-y-2 text-center">
-							<p className="text-base text-foreground">
+						<DialogDescription className="space-y-2 text-center text-muted-foreground">
+							<p className="text-base">
 								You are now{" "}
-								<span className="font-semibold text-purple-300">
+								<span className="font-semibold text-purple-700 dark:text-purple-300">
 									{unlockedRank.name}
 								</span>
 								.
