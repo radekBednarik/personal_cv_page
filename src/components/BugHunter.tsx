@@ -480,10 +480,13 @@ export function BugHunter() {
 			{/* Score display in lower left corner */}
 			{totalBugsSquashed > 0 && (
 				<div className="fixed bottom-4 left-4 z-50">
-					<div className="bg-gray-800/90 dark:bg-gray-700/90 backdrop-blur-sm text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-3">
+					<div className="bg-gray-100/95 text-gray-900 dark:bg-gray-800/90 dark:text-gray-50 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg flex items-center gap-3">
 						{/* Squashed bug icon with purple crossed circle */}
 						<div className="relative flex items-center justify-center w-10 h-10">
-							<Bug className="w-7 h-7 text-gray-300" strokeWidth={2.5} />
+							<Bug
+								className="w-7 h-7 text-gray-700 dark:text-gray-300"
+								strokeWidth={2.5}
+							/>
 							<svg
 								viewBox="0 0 24 24"
 								className="absolute inset-0 w-full h-full text-purple-600 dark:text-purple-400"
