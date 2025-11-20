@@ -1,4 +1,16 @@
-import { Bug } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+	Bug,
+	Flame,
+	GraduationCap,
+	Hammer,
+	ShieldCheck,
+	Skull,
+	Sparkles,
+	Trophy,
+	Wand2,
+	Zap,
+} from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
 	Dialog,
@@ -7,26 +19,87 @@ import {
 	DialogDescription,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { triggerHaptic } from "@/lib/haptics";
 
 interface BugRank {
 	id: number;
 	name: string;
 	minBugs: number;
+	icon: LucideIcon;
+	iconColorClass: string;
 }
 
 const BUG_RANKS: BugRank[] = [
-	{ id: 1, name: "Junior Test Engineer", minBugs: 1 },
-	{ id: 2, name: "Bug Reproduction Intern", minBugs: 3 },
-	{ id: 3, name: "Flaky Test Whisperer", minBugs: 7 },
-	{ id: 4, name: "Automation Script Goblin", minBugs: 15 },
-	{ id: 5, name: "Regression Necromancer", minBugs: 35 },
-	{ id: 6, name: "QA Chaos Wrangler", minBugs: 80 },
-	{ id: 7, name: "Senior Defect Detective", minBugs: 180 },
-	{ id: 8, name: "SDET of Doom Scenarios", minBugs: 400 },
-	{ id: 9, name: "Principal Flaky Test Exorcist", minBugs: 700 },
-	{ id: 10, name: "Legendary Production Firefighter", minBugs: 1000 },
+	{
+		id: 1,
+		name: "Junior Test Engineer",
+		minBugs: 1,
+		icon: GraduationCap,
+		iconColorClass: "text-sky-500 dark:text-sky-300",
+	},
+	{
+		id: 2,
+		name: "Bug Reproduction Intern",
+		minBugs: 3,
+		icon: Bug,
+		iconColorClass: "text-emerald-500 dark:text-emerald-300",
+	},
+	{
+		id: 3,
+		name: "Flaky Test Whisperer",
+		minBugs: 7,
+		icon: Wand2,
+		iconColorClass: "text-purple-500 dark:text-purple-300",
+	},
+	{
+		id: 4,
+		name: "Automation Script Goblin",
+		minBugs: 15,
+		icon: Hammer,
+		iconColorClass: "text-orange-500 dark:text-orange-300",
+	},
+	{
+		id: 5,
+		name: "Regression Necromancer",
+		minBugs: 35,
+		icon: Skull,
+		iconColorClass: "text-slate-400 dark:text-slate-200",
+	},
+	{
+		id: 6,
+		name: "QA Chaos Wrangler",
+		minBugs: 80,
+		icon: ShieldCheck,
+		iconColorClass: "text-indigo-500 dark:text-indigo-300",
+	},
+	{
+		id: 7,
+		name: "Senior Defect Detective",
+		minBugs: 180,
+		icon: Sparkles,
+		iconColorClass: "text-yellow-400 dark:text-yellow-200",
+	},
+	{
+		id: 8,
+		name: "SDET of Doom Scenarios",
+		minBugs: 400,
+		icon: Flame,
+		iconColorClass: "text-red-500 dark:text-red-300",
+	},
+	{
+		id: 9,
+		name: "Principal Flaky Test Exorcist",
+		minBugs: 700,
+		icon: Zap,
+		iconColorClass: "text-teal-400 dark:text-teal-200",
+	},
+	{
+		id: 10,
+		name: "Legendary Production Firefighter",
+		minBugs: 1000,
+		icon: Trophy,
+		iconColorClass: "text-amber-400 dark:text-amber-200",
+	},
 ];
 
 const BUG_HUNTER_TOTAL_KEY = "bugHunter.totalBugsSquashed";
@@ -427,10 +500,20 @@ export function BugHunter() {
 						aria-label="New bug hunting rank unlocked"
 						className="bg-card text-card-foreground border border-border shadow-lg dark:border-purple-500/40"
 					>
-						<DialogTitle className="mb-2 text-center">
-							New QA rank unlocked!
-						</DialogTitle>
-						<DialogDescription className="space-y-2 text-center text-muted-foreground">
+						<div className="flex flex-col items-center gap-3">
+							<div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-purple-600/80 via-fuchsia-500/80 to-amber-400/80 shadow-lg shadow-purple-500/40">
+								<div className="absolute inset-[3px] rounded-full bg-card" />
+								<div className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-purple-600 via-fuchsia-500 to-amber-400">
+									<unlockedRank.icon
+										className={`w-8 h-8 drop-shadow-sm ${unlockedRank.iconColorClass}`}
+									/>
+								</div>
+							</div>
+							<DialogTitle className="mt-1 text-center text-lg font-semibold tracking-tight">
+								New QA rank unlocked!
+							</DialogTitle>
+						</div>
+						<DialogDescription className="mt-2 space-y-3 text-center text-muted-foreground">
 							<p className="text-base">
 								You are now{" "}
 								<span className="font-semibold text-purple-700 dark:text-purple-300">
@@ -438,31 +521,23 @@ export function BugHunter() {
 								</span>
 								.
 							</p>
-							<p className="text-sm">
-								Total bugs squashed:{" "}
-								<span className="font-semibold">{totalBugsSquashed}</span>
-							</p>
+							<div className="flex flex-col items-center gap-1">
+								<span className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80">
+									Total bugs squashed
+								</span>
+								<div className="inline-flex items-baseline gap-1 rounded-full bg-purple-600/10 px-3 py-1 ring-1 ring-purple-500/40">
+									<span className="text-[0.7rem] font-medium text-muted-foreground">
+										#
+									</span>
+									<span className="text-2xl font-extrabold text-purple-700 drop-shadow-sm dark:text-purple-200">
+										{totalBugsSquashed}
+									</span>
+								</div>
+							</div>
 							<p className="text-xs text-muted-foreground">
 								HR just opened a ticket to upgrade your nerf-gun budget.
 							</p>
 						</DialogDescription>
-						<div className="mt-4 flex justify-center">
-							<Button
-								type="button"
-								variant="secondary"
-								size="sm"
-								onClick={() => {
-									if (celebrationTimeoutRef.current !== null) {
-										window.clearTimeout(celebrationTimeoutRef.current);
-										celebrationTimeoutRef.current = null;
-									}
-									setIsCelebrationOpen(false);
-									setUnlockedRank(null);
-								}}
-							>
-								Back to squashing
-							</Button>
-						</div>
 						<DialogClose aria-label="Close celebration" />
 					</DialogContent>
 				</Dialog>
