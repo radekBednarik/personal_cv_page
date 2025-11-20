@@ -140,7 +140,6 @@ export function BugHunter() {
 		endY: 0,
 		duration: 0,
 	});
-	const [score, setScore] = useState(0);
 	const [showScoreAnimation, setShowScoreAnimation] = useState(false);
 	const [showFloatingOne, setShowFloatingOne] = useState(false);
 	const [totalBugsSquashed, setTotalBugsSquashed] = useState(0);
@@ -235,9 +234,9 @@ export function BugHunter() {
 		// Trigger haptic feedback on mobile
 		triggerHaptic(30);
 
-		// Increment score and trigger animations
-		setScore((prev) => prev + 1);
+		// Trigger animations for score indicator
 		setShowScoreAnimation(true);
+
 		setShowFloatingOne(true);
 
 		// Determine latest total from localStorage (source of truth)
@@ -338,6 +337,41 @@ export function BugHunter() {
 
 		spawnBug();
 	}, [spawnBug]);
+
+	// Keep total bugs squashed in sync with localStorage changes (other tabs/windows)
+	useEffect(() => {
+		if (typeof window === "undefined") {
+			return;
+		}
+
+		const handleStorage = (event: StorageEvent) => {
+			if (event.key !== BUG_HUNTER_TOTAL_KEY) {
+				return;
+			}
+
+			if (!event.newValue) {
+				setTotalBugsSquashed(0);
+				previousRankRef.current = null;
+				return;
+			}
+
+			const parsedTotal = Number.parseInt(event.newValue, 10);
+			if (Number.isNaN(parsedTotal) || parsedTotal <= 0) {
+				setTotalBugsSquashed(0);
+				previousRankRef.current = null;
+				return;
+			}
+
+			setTotalBugsSquashed(parsedTotal);
+			previousRankRef.current = getRankForTotal(parsedTotal);
+		};
+
+		window.addEventListener("storage", handleStorage);
+
+		return () => {
+			window.removeEventListener("storage", handleStorage);
+		};
+	}, []);
 
 	// Spawn next bug when the previous one disappears
 	useEffect(() => {
@@ -444,7 +478,7 @@ export function BugHunter() {
 			)}
 
 			{/* Score display in lower left corner */}
-			{score > 0 && (
+			{totalBugsSquashed > 0 && (
 				<div className="fixed bottom-4 left-4 z-50">
 					<div className="bg-gray-800/90 dark:bg-gray-700/90 backdrop-blur-sm text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-3">
 						{/* Squashed bug icon with purple crossed circle */}
@@ -466,7 +500,7 @@ export function BugHunter() {
 						<span
 							className={`text-2xl font-bold ${showScoreAnimation ? "animate-score-increment" : ""}`}
 						>
-							{score}
+							{totalBugsSquashed}
 						</span>
 					</div>
 
