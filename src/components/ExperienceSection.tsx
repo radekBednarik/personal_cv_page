@@ -75,12 +75,12 @@ export function ExperienceSection({
 					</h2>
 				</div>
 
-				<Carousel className="w-full">
+				<Carousel className="w-full" opts={{ loop: true }}>
 					<CarouselContent>
 						{experience.items
 							.filter((item) => item.visible)
 							.map((item) => (
-								<CarouselItem key={item.id} className="px-10 md:px-16">
+								<CarouselItem key={item.id}>
 									<Card className="relative overflow-hidden dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
 										{/* Timeline indicator */}
 										<div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 dark:bg-purple-400" />
