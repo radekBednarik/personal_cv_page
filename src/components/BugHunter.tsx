@@ -19,6 +19,12 @@ import {
 	DialogDescription,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { triggerHaptic } from "@/lib/haptics";
 
 interface BugRank {
@@ -145,6 +151,8 @@ export function BugHunter() {
 	const [totalBugsSquashed, setTotalBugsSquashed] = useState(0);
 	const [unlockedRank, setUnlockedRank] = useState<BugRank | null>(null);
 	const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
+	const [isTouchDevice, setIsTouchDevice] = useState(false);
+	const [isRankTooltipOpen, setIsRankTooltipOpen] = useState(false);
 
 	// Generate random position on viewport edges
 	const getRandomEdgePosition = useCallback((): {
@@ -317,6 +325,21 @@ export function BugHunter() {
 		}, 300);
 	};
 
+	// Detect touch-capable device for tooltip handling
+	useEffect(() => {
+		if (typeof window === "undefined") {
+			return;
+		}
+
+		const nav = navigator as typeof navigator & { msMaxTouchPoints?: number };
+		const hasTouch =
+			"ontouchstart" in window ||
+			nav.maxTouchPoints > 0 ||
+			(nav.msMaxTouchPoints ?? 0) > 0;
+
+		setIsTouchDevice(hasTouch);
+	}, []);
+
 	// Load total bugs squashed and rank from localStorage, then spawn first bug
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -337,6 +360,28 @@ export function BugHunter() {
 
 		spawnBug();
 	}, [spawnBug]);
+
+	// Auto-close rank tooltip on mobile when scrolling or after a short delay
+	useEffect(() => {
+		if (!isTouchDevice || !isRankTooltipOpen || typeof window === "undefined") {
+			return;
+		}
+
+		const handleScroll = () => {
+			setIsRankTooltipOpen(false);
+		};
+
+		const timeoutId = window.setTimeout(() => {
+			setIsRankTooltipOpen(false);
+		}, 4000);
+
+		window.addEventListener("scroll", handleScroll, true);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll, true);
+			window.clearTimeout(timeoutId);
+		};
+	}, [isTouchDevice, isRankTooltipOpen]);
 
 	// Keep total bugs squashed in sync with localStorage changes (other tabs/windows)
 	useEffect(() => {
@@ -398,6 +443,8 @@ export function BugHunter() {
 			}
 		};
 	}, []);
+
+	const currentRank = getRankForTotal(totalBugsSquashed);
 
 	return (
 		<>
@@ -475,6 +522,54 @@ export function BugHunter() {
 						)}
 					</button>
 				</div>
+			)}
+
+			{/* Floating current rank badge on right side */}
+			{currentRank && (
+				<TooltipProvider>
+					<Tooltip
+						open={isTouchDevice ? isRankTooltipOpen : undefined}
+						onOpenChange={(open) => {
+							if (!isTouchDevice) return;
+							setIsRankTooltipOpen(open);
+						}}
+						delayDuration={isTouchDevice ? 0 : 150}
+					>
+						<TooltipTrigger asChild>
+							<button
+								type="button"
+								className="fixed right-3 top-24 sm:right-4 sm:top-1/3 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-card/95 text-card-foreground shadow-lg ring-1 ring-border/70 backdrop-blur-sm sm:h-14 sm:w-14"
+								aria-label={`Current QA rank: ${currentRank.name}`}
+								onClick={(event) => {
+									if (!isTouchDevice) {
+										return;
+									}
+									event.preventDefault();
+									setIsRankTooltipOpen((previous) => !previous);
+								}}
+							>
+								<div className="relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-tr from-purple-600/80 via-fuchsia-500/80 to-amber-400/80 p-[2px] shadow-md shadow-purple-500/40 dark:shadow-purple-400/40">
+									<div className="flex h-full w-full items-center justify-center rounded-full bg-card">
+										<currentRank.icon
+											className={`h-7 w-7 drop-shadow-sm sm:h-8 sm:w-8 ${currentRank.iconColorClass}`}
+										/>
+									</div>
+								</div>
+							</button>
+						</TooltipTrigger>
+						<TooltipContent side="left" className="max-w-xs text-left">
+							<p className="text-xs font-medium text-muted-foreground">
+								Current QA rank
+							</p>
+							<p className="text-sm font-semibold text-foreground">
+								{currentRank.name}
+							</p>
+							<p className="mt-1 text-xs text-muted-foreground">
+								Unlocked after squashing at least {currentRank.minBugs} bugs.
+							</p>
+						</TooltipContent>
+					</Tooltip>
+				</TooltipProvider>
 			)}
 
 			{/* Score display in lower left corner */}
