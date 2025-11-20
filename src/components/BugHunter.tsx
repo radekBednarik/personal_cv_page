@@ -2,6 +2,41 @@ import { Bug } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { triggerHaptic } from "@/lib/haptics";
 
+interface BugRank {
+	id: number;
+	name: string;
+	minBugs: number;
+}
+
+const BUG_RANKS: BugRank[] = [
+	{ id: 1, name: "Junior Test Engineer", minBugs: 1 },
+	{ id: 2, name: "Bug Reproduction Intern", minBugs: 3 },
+	{ id: 3, name: "Flaky Test Whisperer", minBugs: 7 },
+	{ id: 4, name: "Automation Script Goblin", minBugs: 15 },
+	{ id: 5, name: "Regression Necromancer", minBugs: 35 },
+	{ id: 6, name: "QA Chaos Wrangler", minBugs: 80 },
+	{ id: 7, name: "Senior Defect Detective", minBugs: 180 },
+	{ id: 8, name: "SDET of Doom Scenarios", minBugs: 400 },
+	{ id: 9, name: "Principal Flaky Test Exorcist", minBugs: 700 },
+	{ id: 10, name: "Legendary Production Firefighter", minBugs: 1000 },
+];
+
+const BUG_HUNTER_TOTAL_KEY = "bugHunter.totalBugsSquashed";
+
+function getRankForTotal(total: number): BugRank | null {
+	if (total <= 0) return null;
+
+	let currentRank: BugRank | null = null;
+	for (const rank of BUG_RANKS) {
+		if (total >= rank.minBugs) {
+			currentRank = rank;
+		} else {
+			break;
+		}
+	}
+	return currentRank;
+}
+
 interface BugState {
 	isVisible: boolean;
 	isSquashing: boolean;
@@ -27,6 +62,8 @@ export function BugHunter() {
 	const [score, setScore] = useState(0);
 	const [showScoreAnimation, setShowScoreAnimation] = useState(false);
 	const [showFloatingOne, setShowFloatingOne] = useState(false);
+	const [totalBugsSquashed, setTotalBugsSquashed] = useState(0);
+	const [currentRank, setCurrentRank] = useState<BugRank | null>(null);
 
 	// Generate random position on viewport edges
 	const getRandomEdgePosition = useCallback((): {
@@ -119,6 +156,39 @@ export function BugHunter() {
 		setShowScoreAnimation(true);
 		setShowFloatingOne(true);
 
+		// Determine latest total from localStorage (source of truth)
+		let latestTotalFromStorage: number | null = null;
+		if (typeof window !== "undefined") {
+			try {
+				const stored = window.localStorage.getItem(BUG_HUNTER_TOTAL_KEY);
+				if (stored) {
+					const parsed = Number.parseInt(stored, 10);
+					if (!Number.isNaN(parsed) && parsed > 0) {
+						latestTotalFromStorage = parsed;
+					}
+				}
+			} catch {
+				// Ignore storage errors
+			}
+		}
+
+		// Update total bugs squashed and rank, and persist to localStorage
+		setTotalBugsSquashed((prevTotal) => {
+			const baseTotal = latestTotalFromStorage ?? prevTotal;
+			const nextTotal = baseTotal + 1;
+			setCurrentRank(getRankForTotal(nextTotal));
+
+			if (typeof window !== "undefined") {
+				try {
+					window.localStorage.setItem(BUG_HUNTER_TOTAL_KEY, String(nextTotal));
+				} catch {
+					// Ignore storage errors
+				}
+			}
+
+			return nextTotal;
+		});
+
 		// Reset animations after they complete
 		if (scoreAnimationTimeoutRef.current) {
 			clearTimeout(scoreAnimationTimeoutRef.current);
@@ -146,8 +216,23 @@ export function BugHunter() {
 		}, 300);
 	};
 
-	// Initial bug spawn
+	// Load total bugs squashed and rank from localStorage, then spawn first bug
 	useEffect(() => {
+		if (typeof window !== "undefined") {
+			try {
+				const storedTotal = window.localStorage.getItem(BUG_HUNTER_TOTAL_KEY);
+				if (storedTotal) {
+					const parsedTotal = Number.parseInt(storedTotal, 10);
+					if (!Number.isNaN(parsedTotal) && parsedTotal > 0) {
+						setTotalBugsSquashed(parsedTotal);
+						setCurrentRank(getRankForTotal(parsedTotal));
+					}
+				}
+			} catch {
+				// Ignore storage errors
+			}
+		}
+
 		spawnBug();
 	}, [spawnBug]);
 
