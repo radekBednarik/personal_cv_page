@@ -1,5 +1,13 @@
 import { Bug } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { triggerHaptic } from "@/lib/haptics";
 
 interface BugRank {
@@ -63,7 +71,8 @@ export function BugHunter() {
 	const [showScoreAnimation, setShowScoreAnimation] = useState(false);
 	const [showFloatingOne, setShowFloatingOne] = useState(false);
 	const [totalBugsSquashed, setTotalBugsSquashed] = useState(0);
-	const [currentRank, setCurrentRank] = useState<BugRank | null>(null);
+	const [unlockedRank, setUnlockedRank] = useState<BugRank | null>(null);
+	const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
 
 	// Generate random position on viewport edges
 	const getRandomEdgePosition = useCallback((): {
@@ -120,6 +129,8 @@ export function BugHunter() {
 	const scoreAnimationTimeoutRef = useRef<number | null>(null);
 	const floatingOneTimeoutRef = useRef<number | null>(null);
 	const squashTimeoutRef = useRef<number | null>(null);
+	const celebrationTimeoutRef = useRef<number | null>(null);
+	const previousRankRef = useRef<BugRank | null>(null);
 	const hasSpawnedOnceRef = useRef(false);
 
 	// Spawn a new bug
@@ -176,7 +187,25 @@ export function BugHunter() {
 		setTotalBugsSquashed((prevTotal) => {
 			const baseTotal = latestTotalFromStorage ?? prevTotal;
 			const nextTotal = baseTotal + 1;
-			setCurrentRank(getRankForTotal(nextTotal));
+			const nextRank = getRankForTotal(nextTotal);
+
+			if (nextRank && nextRank.id !== previousRankRef.current?.id) {
+				setUnlockedRank(nextRank);
+				setIsCelebrationOpen(true);
+
+				// Stronger haptic buzz for rank ups
+				triggerHaptic(60);
+
+				if (celebrationTimeoutRef.current !== null) {
+					window.clearTimeout(celebrationTimeoutRef.current);
+				}
+				celebrationTimeoutRef.current = window.setTimeout(() => {
+					setIsCelebrationOpen(false);
+					setUnlockedRank(null);
+				}, 5000);
+			}
+
+			previousRankRef.current = nextRank;
 
 			if (typeof window !== "undefined") {
 				try {
@@ -224,8 +253,9 @@ export function BugHunter() {
 				if (storedTotal) {
 					const parsedTotal = Number.parseInt(storedTotal, 10);
 					if (!Number.isNaN(parsedTotal) && parsedTotal > 0) {
+						const initialRank = getRankForTotal(parsedTotal);
 						setTotalBugsSquashed(parsedTotal);
-						setCurrentRank(getRankForTotal(parsedTotal));
+						previousRankRef.current = initialRank;
 					}
 				}
 			} catch {
@@ -255,6 +285,9 @@ export function BugHunter() {
 			}
 			if (squashTimeoutRef.current !== null) {
 				clearTimeout(squashTimeoutRef.current);
+			}
+			if (celebrationTimeoutRef.current !== null) {
+				clearTimeout(celebrationTimeoutRef.current);
 			}
 		};
 	}, []);
@@ -371,6 +404,65 @@ export function BugHunter() {
 						</div>
 					)}
 				</div>
+			)}
+
+			{/* Rank celebration modal */}
+			{unlockedRank && (
+				<Dialog
+					open={isCelebrationOpen}
+					onOpenChange={(open) => {
+						if (!open) {
+							if (celebrationTimeoutRef.current !== null) {
+								window.clearTimeout(celebrationTimeoutRef.current);
+								celebrationTimeoutRef.current = null;
+							}
+							setIsCelebrationOpen(false);
+							setUnlockedRank(null);
+						} else {
+							setIsCelebrationOpen(true);
+						}
+					}}
+				>
+					<DialogContent aria-label="New bug hunting rank unlocked">
+						<DialogTitle className="mb-2 text-center">
+							New QA rank unlocked!
+						</DialogTitle>
+						<DialogDescription className="space-y-2 text-center">
+							<p className="text-base text-foreground">
+								You are now{" "}
+								<span className="font-semibold text-purple-300">
+									{unlockedRank.name}
+								</span>
+								.
+							</p>
+							<p className="text-sm">
+								Total bugs squashed:{" "}
+								<span className="font-semibold">{totalBugsSquashed}</span>
+							</p>
+							<p className="text-xs text-muted-foreground">
+								HR just opened a ticket to upgrade your nerf-gun budget.
+							</p>
+						</DialogDescription>
+						<div className="mt-4 flex justify-center">
+							<Button
+								type="button"
+								variant="secondary"
+								size="sm"
+								onClick={() => {
+									if (celebrationTimeoutRef.current !== null) {
+										window.clearTimeout(celebrationTimeoutRef.current);
+										celebrationTimeoutRef.current = null;
+									}
+									setIsCelebrationOpen(false);
+									setUnlockedRank(null);
+								}}
+							>
+								Back to squashing
+							</Button>
+						</div>
+						<DialogClose aria-label="Close celebration" />
+					</DialogContent>
+				</Dialog>
 			)}
 		</>
 	);
