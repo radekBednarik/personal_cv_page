@@ -1,11 +1,10 @@
-import * as React from "react";
 import useEmblaCarousel, {
 	type UseEmblaCarouselType,
 } from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-import { cn } from "@/lib/utils";
+import * as React from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -116,6 +115,7 @@ function Carousel({
 				canScrollNext,
 			}}
 		>
+			{/* biome-ignore lint/a11y/useSemanticElements: ARIA role required for carousel accessibility */}
 			<div
 				onKeyDownCapture={handleKeyDown}
 				className={cn("relative", className)}
@@ -155,6 +155,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
 	const { orientation } = useCarousel();
 
 	return (
+		// biome-ignore lint/a11y/useSemanticElements: ARIA role required for carousel item accessibility
 		<div
 			role="group"
 			aria-roledescription="slide"

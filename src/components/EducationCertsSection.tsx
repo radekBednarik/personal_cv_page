@@ -79,6 +79,7 @@ export function EducationCertsSection({
 				{/* Certifications Section */}
 				{certifications.items.length > 0 && (
 					<>
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
 						<div id="certifications" className="flex items-center gap-3 mb-8">
 							<Award
 								className="h-8 w-8 text-purple-600 dark:text-purple-400"
@@ -132,6 +133,7 @@ export function EducationCertsSection({
 				{/* Languages Section */}
 				{languages.items.length > 0 && (
 					<>
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
 						<div id="languages" className="flex items-center gap-3 mb-8">
 							<Languages
 								className="h-8 w-8 text-purple-600 dark:text-purple-400"

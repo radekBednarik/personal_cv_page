@@ -62,10 +62,7 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 	];
 
 	return (
-		<header
-			className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800 dark:supports-[backdrop-filter]:bg-gray-900/60"
-			role="banner"
-		>
+		<header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800 dark:supports-[backdrop-filter]:bg-gray-900/60">
 			<div className="container mx-auto max-w-6xl flex h-16 items-center justify-between px-4 relative">
 				{/* Mobile Menu */}
 				<Sheet open={isOpen} onOpenChange={setIsOpen}>
