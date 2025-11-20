@@ -53,7 +53,7 @@ export function HeroSection({ basics }: HeroSectionProps) {
 						<div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
 							<Button
 								variant="default"
-								className="bg-purple-600 hover:bg-purple-600/90"
+								className="bg-purple-600 hover:bg-purple-600/90 text-white"
 								asChild
 							>
 								<a

@@ -1,6 +1,128 @@
-import { Bug } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+	Bug,
+	Flame,
+	GraduationCap,
+	Hammer,
+	ShieldCheck,
+	Skull,
+	Sparkles,
+	Trophy,
+	Wand2,
+	Zap,
+} from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { triggerHaptic } from "@/lib/haptics";
+
+interface BugRank {
+	id: number;
+	name: string;
+	minBugs: number;
+	icon: LucideIcon;
+	iconColorClass: string;
+}
+
+const BUG_RANKS: BugRank[] = [
+	{
+		id: 1,
+		name: "Junior Test Engineer",
+		minBugs: 1,
+		icon: GraduationCap,
+		iconColorClass: "text-sky-500 dark:text-sky-300",
+	},
+	{
+		id: 2,
+		name: "Bug Reproduction Intern",
+		minBugs: 3,
+		icon: Bug,
+		iconColorClass: "text-emerald-500 dark:text-emerald-300",
+	},
+	{
+		id: 3,
+		name: "Flaky Test Whisperer",
+		minBugs: 7,
+		icon: Wand2,
+		iconColorClass: "text-purple-500 dark:text-purple-300",
+	},
+	{
+		id: 4,
+		name: "Automation Script Goblin",
+		minBugs: 15,
+		icon: Hammer,
+		iconColorClass: "text-orange-500 dark:text-orange-300",
+	},
+	{
+		id: 5,
+		name: "Regression Necromancer",
+		minBugs: 35,
+		icon: Skull,
+		iconColorClass: "text-slate-400 dark:text-slate-200",
+	},
+	{
+		id: 6,
+		name: "QA Chaos Wrangler",
+		minBugs: 80,
+		icon: ShieldCheck,
+		iconColorClass: "text-indigo-500 dark:text-indigo-300",
+	},
+	{
+		id: 7,
+		name: "Senior Defect Detective",
+		minBugs: 180,
+		icon: Sparkles,
+		iconColorClass: "text-yellow-400 dark:text-yellow-200",
+	},
+	{
+		id: 8,
+		name: "SDET of Doom Scenarios",
+		minBugs: 400,
+		icon: Flame,
+		iconColorClass: "text-red-500 dark:text-red-300",
+	},
+	{
+		id: 9,
+		name: "Principal Flaky Test Exorcist",
+		minBugs: 700,
+		icon: Zap,
+		iconColorClass: "text-teal-400 dark:text-teal-200",
+	},
+	{
+		id: 10,
+		name: "Legendary Production Firefighter",
+		minBugs: 1000,
+		icon: Trophy,
+		iconColorClass: "text-amber-400 dark:text-amber-200",
+	},
+];
+
+const BUG_HUNTER_TOTAL_KEY = "bugHunter.totalBugsSquashed";
+
+function getRankForTotal(total: number): BugRank | null {
+	if (total <= 0) return null;
+
+	let currentRank: BugRank | null = null;
+	for (const rank of BUG_RANKS) {
+		if (total >= rank.minBugs) {
+			currentRank = rank;
+		} else {
+			break;
+		}
+	}
+	return currentRank;
+}
 
 interface BugState {
 	isVisible: boolean;
@@ -24,9 +146,13 @@ export function BugHunter() {
 		endY: 0,
 		duration: 0,
 	});
-	const [score, setScore] = useState(0);
 	const [showScoreAnimation, setShowScoreAnimation] = useState(false);
 	const [showFloatingOne, setShowFloatingOne] = useState(false);
+	const [totalBugsSquashed, setTotalBugsSquashed] = useState(0);
+	const [unlockedRank, setUnlockedRank] = useState<BugRank | null>(null);
+	const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
+	const [isTouchDevice, setIsTouchDevice] = useState(false);
+	const [isRankTooltipOpen, setIsRankTooltipOpen] = useState(false);
 
 	// Generate random position on viewport edges
 	const getRandomEdgePosition = useCallback((): {
@@ -83,6 +209,8 @@ export function BugHunter() {
 	const scoreAnimationTimeoutRef = useRef<number | null>(null);
 	const floatingOneTimeoutRef = useRef<number | null>(null);
 	const squashTimeoutRef = useRef<number | null>(null);
+	const celebrationTimeoutRef = useRef<number | null>(null);
+	const previousRankRef = useRef<BugRank | null>(null);
 	const hasSpawnedOnceRef = useRef(false);
 
 	// Spawn a new bug
@@ -114,10 +242,61 @@ export function BugHunter() {
 		// Trigger haptic feedback on mobile
 		triggerHaptic(30);
 
-		// Increment score and trigger animations
-		setScore((prev) => prev + 1);
+		// Trigger animations for score indicator
 		setShowScoreAnimation(true);
+
 		setShowFloatingOne(true);
+
+		// Determine latest total from localStorage (source of truth)
+		let latestTotalFromStorage: number | null = null;
+		if (typeof window !== "undefined") {
+			try {
+				const stored = window.localStorage.getItem(BUG_HUNTER_TOTAL_KEY);
+				if (stored) {
+					const parsed = Number.parseInt(stored, 10);
+					if (!Number.isNaN(parsed) && parsed > 0) {
+						latestTotalFromStorage = parsed;
+					}
+				}
+			} catch {
+				// Ignore storage errors
+			}
+		}
+
+		// Update total bugs squashed and rank, and persist to localStorage
+		setTotalBugsSquashed((prevTotal) => {
+			const baseTotal = latestTotalFromStorage ?? prevTotal;
+			const nextTotal = baseTotal + 1;
+			const nextRank = getRankForTotal(nextTotal);
+
+			if (nextRank && nextRank.id !== previousRankRef.current?.id) {
+				setUnlockedRank(nextRank);
+				setIsCelebrationOpen(true);
+
+				// Stronger haptic buzz for rank ups
+				triggerHaptic(60);
+
+				if (celebrationTimeoutRef.current !== null) {
+					window.clearTimeout(celebrationTimeoutRef.current);
+				}
+				celebrationTimeoutRef.current = window.setTimeout(() => {
+					setIsCelebrationOpen(false);
+					setUnlockedRank(null);
+				}, 5000);
+			}
+
+			previousRankRef.current = nextRank;
+
+			if (typeof window !== "undefined") {
+				try {
+					window.localStorage.setItem(BUG_HUNTER_TOTAL_KEY, String(nextTotal));
+				} catch {
+					// Ignore storage errors
+				}
+			}
+
+			return nextTotal;
+		});
 
 		// Reset animations after they complete
 		if (scoreAnimationTimeoutRef.current) {
@@ -146,10 +325,98 @@ export function BugHunter() {
 		}, 300);
 	};
 
-	// Initial bug spawn
+	// Detect touch-capable device for tooltip handling
 	useEffect(() => {
+		if (typeof window === "undefined") {
+			return;
+		}
+
+		const nav = navigator as typeof navigator & { msMaxTouchPoints?: number };
+		const hasTouch =
+			"ontouchstart" in window ||
+			nav.maxTouchPoints > 0 ||
+			(nav.msMaxTouchPoints ?? 0) > 0;
+
+		setIsTouchDevice(hasTouch);
+	}, []);
+
+	// Load total bugs squashed and rank from localStorage, then spawn first bug
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			try {
+				const storedTotal = window.localStorage.getItem(BUG_HUNTER_TOTAL_KEY);
+				if (storedTotal) {
+					const parsedTotal = Number.parseInt(storedTotal, 10);
+					if (!Number.isNaN(parsedTotal) && parsedTotal > 0) {
+						const initialRank = getRankForTotal(parsedTotal);
+						setTotalBugsSquashed(parsedTotal);
+						previousRankRef.current = initialRank;
+					}
+				}
+			} catch {
+				// Ignore storage errors
+			}
+		}
+
 		spawnBug();
 	}, [spawnBug]);
+
+	// Auto-close rank tooltip on mobile when scrolling or after a short delay
+	useEffect(() => {
+		if (!isTouchDevice || !isRankTooltipOpen || typeof window === "undefined") {
+			return;
+		}
+
+		const handleScroll = () => {
+			setIsRankTooltipOpen(false);
+		};
+
+		const timeoutId = window.setTimeout(() => {
+			setIsRankTooltipOpen(false);
+		}, 4000);
+
+		window.addEventListener("scroll", handleScroll, true);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll, true);
+			window.clearTimeout(timeoutId);
+		};
+	}, [isTouchDevice, isRankTooltipOpen]);
+
+	// Keep total bugs squashed in sync with localStorage changes (other tabs/windows)
+	useEffect(() => {
+		if (typeof window === "undefined") {
+			return;
+		}
+
+		const handleStorage = (event: StorageEvent) => {
+			if (event.key !== BUG_HUNTER_TOTAL_KEY) {
+				return;
+			}
+
+			if (!event.newValue) {
+				setTotalBugsSquashed(0);
+				previousRankRef.current = null;
+				return;
+			}
+
+			const parsedTotal = Number.parseInt(event.newValue, 10);
+			if (Number.isNaN(parsedTotal) || parsedTotal <= 0) {
+				setTotalBugsSquashed(0);
+				previousRankRef.current = null;
+				return;
+			}
+
+			setTotalBugsSquashed(parsedTotal);
+			previousRankRef.current = getRankForTotal(parsedTotal);
+		};
+
+		window.addEventListener("storage", handleStorage);
+
+		return () => {
+			window.removeEventListener("storage", handleStorage);
+		};
+	}, []);
 
 	// Spawn next bug when the previous one disappears
 	useEffect(() => {
@@ -171,8 +438,13 @@ export function BugHunter() {
 			if (squashTimeoutRef.current !== null) {
 				clearTimeout(squashTimeoutRef.current);
 			}
+			if (celebrationTimeoutRef.current !== null) {
+				clearTimeout(celebrationTimeoutRef.current);
+			}
 		};
 	}, []);
+
+	const currentRank = getRankForTotal(totalBugsSquashed);
 
 	return (
 		<>
@@ -252,13 +524,64 @@ export function BugHunter() {
 				</div>
 			)}
 
+			{/* Floating current rank badge on right side */}
+			{currentRank && (
+				<TooltipProvider>
+					<Tooltip
+						open={isTouchDevice ? isRankTooltipOpen : undefined}
+						onOpenChange={(open) => {
+							if (!isTouchDevice) return;
+							setIsRankTooltipOpen(open);
+						}}
+						delayDuration={isTouchDevice ? 0 : 150}
+					>
+						<TooltipTrigger asChild>
+							<button
+								type="button"
+								className="fixed right-3 top-24 sm:right-4 sm:top-1/3 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-card/95 text-card-foreground shadow-lg ring-1 ring-border/70 backdrop-blur-sm sm:h-14 sm:w-14"
+								aria-label={`Current QA rank: ${currentRank.name}`}
+								onClick={(event) => {
+									if (!isTouchDevice) {
+										return;
+									}
+									event.preventDefault();
+									setIsRankTooltipOpen((previous) => !previous);
+								}}
+							>
+								<div className="relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-tr from-purple-600/80 via-fuchsia-500/80 to-amber-400/80 p-[2px] shadow-md shadow-purple-500/40 dark:shadow-purple-400/40">
+									<div className="flex h-full w-full items-center justify-center rounded-full bg-card">
+										<currentRank.icon
+											className={`h-7 w-7 drop-shadow-sm sm:h-8 sm:w-8 ${currentRank.iconColorClass}`}
+										/>
+									</div>
+								</div>
+							</button>
+						</TooltipTrigger>
+						<TooltipContent side="left" className="max-w-xs text-left">
+							<p className="text-xs font-medium text-muted-foreground">
+								Current QA rank
+							</p>
+							<p className="text-sm font-semibold text-foreground">
+								{currentRank.name}
+							</p>
+							<p className="mt-1 text-xs text-muted-foreground">
+								Unlocked after squashing at least {currentRank.minBugs} bugs.
+							</p>
+						</TooltipContent>
+					</Tooltip>
+				</TooltipProvider>
+			)}
+
 			{/* Score display in lower left corner */}
-			{score > 0 && (
+			{totalBugsSquashed > 0 && (
 				<div className="fixed bottom-4 left-4 z-50">
-					<div className="bg-gray-800/90 dark:bg-gray-700/90 backdrop-blur-sm text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-3">
+					<div className="bg-gray-100/95 text-gray-900 dark:bg-gray-800/90 dark:text-gray-50 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg flex items-center gap-3">
 						{/* Squashed bug icon with purple crossed circle */}
 						<div className="relative flex items-center justify-center w-10 h-10">
-							<Bug className="w-7 h-7 text-gray-300" strokeWidth={2.5} />
+							<Bug
+								className="w-7 h-7 text-gray-700 dark:text-gray-300"
+								strokeWidth={2.5}
+							/>
 							<svg
 								viewBox="0 0 24 24"
 								className="absolute inset-0 w-full h-full text-purple-600 dark:text-purple-400"
@@ -275,7 +598,7 @@ export function BugHunter() {
 						<span
 							className={`text-2xl font-bold ${showScoreAnimation ? "animate-score-increment" : ""}`}
 						>
-							{score}
+							{totalBugsSquashed}
 						</span>
 					</div>
 
@@ -286,6 +609,70 @@ export function BugHunter() {
 						</div>
 					)}
 				</div>
+			)}
+
+			{/* Rank celebration modal */}
+			{unlockedRank && (
+				<Dialog
+					open={isCelebrationOpen}
+					onOpenChange={(open) => {
+						if (!open) {
+							if (celebrationTimeoutRef.current !== null) {
+								window.clearTimeout(celebrationTimeoutRef.current);
+								celebrationTimeoutRef.current = null;
+							}
+							setIsCelebrationOpen(false);
+							setUnlockedRank(null);
+						} else {
+							setIsCelebrationOpen(true);
+						}
+					}}
+				>
+					<DialogContent
+						aria-label="New bug hunting rank unlocked"
+						className="bg-card text-card-foreground border border-border shadow-lg dark:border-purple-500/40"
+					>
+						<div className="flex flex-col items-center gap-3">
+							<div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-purple-600/80 via-fuchsia-500/80 to-amber-400/80 shadow-lg shadow-purple-500/40">
+								<div className="absolute inset-[3px] rounded-full bg-card" />
+								<div className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-purple-600 via-fuchsia-500 to-amber-400">
+									<unlockedRank.icon
+										className={`w-8 h-8 drop-shadow-sm ${unlockedRank.iconColorClass}`}
+									/>
+								</div>
+							</div>
+							<DialogTitle className="mt-1 text-center text-lg font-semibold tracking-tight">
+								New QA rank unlocked!
+							</DialogTitle>
+						</div>
+						<DialogDescription className="mt-2 space-y-3 text-center text-muted-foreground">
+							<p className="text-base">
+								You are now{" "}
+								<span className="font-semibold text-purple-700 dark:text-purple-300">
+									{unlockedRank.name}
+								</span>
+								.
+							</p>
+							<div className="flex flex-col items-center gap-1">
+								<span className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80">
+									Total bugs squashed
+								</span>
+								<div className="inline-flex items-baseline gap-1 rounded-full bg-purple-600/10 px-3 py-1 ring-1 ring-purple-500/40">
+									<span className="text-[0.7rem] font-medium text-muted-foreground">
+										#
+									</span>
+									<span className="text-2xl font-extrabold text-purple-700 drop-shadow-sm dark:text-purple-200">
+										{totalBugsSquashed}
+									</span>
+								</div>
+							</div>
+							<p className="text-xs text-muted-foreground">
+								HR just opened a ticket to upgrade your nerf-gun budget.
+							</p>
+						</DialogDescription>
+						<DialogClose aria-label="Close celebration" />
+					</DialogContent>
+				</Dialog>
 			)}
 		</>
 	);
