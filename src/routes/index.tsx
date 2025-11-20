@@ -24,26 +24,21 @@ function App() {
 				linkedinUrl="https://www.linkedin.com/in/bednarikradek/"
 			/>
 			<HeroSection basics={resume.basics} />
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="testing-philosophy">
 				<TestingPhilosophySection />
 			</div>
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="profile">
 				<ProfileSection />
 			</div>
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="experience">
 				<ExperienceSection
 					experience={resume.sections.experience}
 					projects={resume.sections.projects}
 				/>
 			</div>
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="skills">
 				<SkillsSection skills={resume.sections.skills} />
 			</div>
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation anchor */}
 			<div id="education">
 				<EducationCertsSection
 					education={resume.sections.education}
@@ -53,7 +48,10 @@ function App() {
 			</div>
 
 			{/* Footer */}
-			<footer className="py-8 px-4 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white text-center">
+			<footer
+				className="py-8 px-4 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white text-center"
+				role="contentinfo"
+			>
 				<p className="text-sm">
 					© {new Date().getFullYear()}{" "}
 					<a
@@ -61,6 +59,7 @@ function App() {
 						target="_blank"
 						rel="noopener noreferrer"
 						className="inline-block text-purple-600 dark:text-purple-400 font-semibold transition-colors transition-transform duration-200 hover:text-purple-700 dark:hover:text-purple-300 hover:scale-105"
+						aria-label="View source code on GitHub (opens in new tab)"
 					>
 						{resume.basics.name}
 					</a>

@@ -45,7 +45,10 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 	];
 
 	return (
-		<header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800 dark:supports-[backdrop-filter]:bg-gray-900/60">
+		<header
+			className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800 dark:supports-[backdrop-filter]:bg-gray-900/60"
+			role="banner"
+		>
 			<div className="container mx-auto max-w-6xl flex h-16 items-center justify-between px-4">
 				{/* Mobile Menu */}
 				<Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -67,7 +70,10 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 						<SheetHeader>
 							<SheetTitle className="dark:text-gray-100">Navigation</SheetTitle>
 						</SheetHeader>
-						<nav className="flex flex-col gap-4 mt-8 px-4">
+						<nav
+							className="flex flex-col gap-4 mt-8 px-4"
+							aria-label="Mobile navigation"
+						>
 							{navItems.map((item) => (
 								<button
 									key={item.id}
@@ -83,7 +89,7 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 				</Sheet>
 
 				{/* Desktop Navigation */}
-				<nav className="hidden md:flex gap-6">
+				<nav className="hidden md:flex gap-6" aria-label="Main navigation">
 					{navItems.map((item) => (
 						<button
 							key={item.id}

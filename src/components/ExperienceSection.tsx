@@ -49,10 +49,11 @@ export function ExperienceSection({
 					target="_blank"
 					rel="noopener noreferrer"
 					className={`hover:underline inline-flex items-center gap-2 ${colorClass} font-semibold`}
+					aria-label={`Visit ${company} website (opens in new tab)`}
 				>
 					<span className="inline-flex items-start gap-1">
 						{company}
-						<ExternalLink className="h-3 w-3" />
+						<ExternalLink className="h-3 w-3" aria-hidden="true" />
 					</span>
 				</a>
 			);
@@ -75,11 +76,21 @@ export function ExperienceSection({
 	};
 
 	return (
-		<section className="py-12 px-4 bg-gray-50 dark:bg-gray-900">
+		<section
+			className="py-12 px-4 bg-gray-50 dark:bg-gray-900"
+			aria-labelledby="experience-heading"
+		>
 			<div className="container mx-auto max-w-4xl">
 				<div className="flex items-center gap-3 mb-8">
-					<TestTube className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-					<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 uppercase">
+					<TestTube
+						className="h-8 w-8 text-purple-600 dark:text-purple-400"
+						aria-hidden="true"
+					/>
+					{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
+					<h2
+						id="experience-heading"
+						className="text-3xl font-bold text-gray-900 dark:text-gray-100 uppercase"
+					>
 						QA Experience
 					</h2>
 				</div>

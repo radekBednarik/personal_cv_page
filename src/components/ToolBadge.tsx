@@ -62,13 +62,14 @@ export function ToolBadge({
 				target="_blank"
 				rel="noopener noreferrer"
 				className="inline-block hover:scale-105 transition-transform"
+				aria-label={`Learn more about ${tool} (opens in new tab)`}
 			>
 				<Badge
 					variant={variant}
 					className={`${className} cursor-pointer group`}
 				>
 					{tool}
-					<ExternalLink className="ml-1 h-3 w-3" />
+					<ExternalLink className="ml-1 h-3 w-3" aria-hidden="true" />
 				</Badge>
 			</a>
 		);

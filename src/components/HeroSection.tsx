@@ -10,7 +10,10 @@ interface HeroSectionProps {
 
 export function HeroSection({ basics }: HeroSectionProps) {
 	return (
-		<section className="relative bg-gradient-to-b from-purple-600/10 to-transparent dark:from-purple-600/20 dark:to-gray-900/50 py-16 px-4 overflow-hidden">
+		<section
+			className="relative bg-gradient-to-b from-purple-600/10 to-transparent dark:from-purple-600/20 dark:to-gray-900/50 py-16 px-4 overflow-hidden"
+			aria-labelledby="hero-heading"
+		>
 			{/* Floating background elements */}
 			<div className="absolute top-10 right-10 opacity-10 dark:opacity-20">
 				<FlaskConical className="h-16 w-16 md:h-32 md:w-32 text-purple-600 dark:text-purple-400 animate-float" />
@@ -43,7 +46,11 @@ export function HeroSection({ basics }: HeroSectionProps) {
 							<span>Quality Assured</span>
 						</div>
 
-						<h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+						{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
+						<h1
+							id="hero-heading"
+							className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-2"
+						>
 							{basics.name}
 						</h1>
 						<p className="text-xl md:text-2xl text-purple-600 dark:text-purple-400 font-semibold mb-4">
