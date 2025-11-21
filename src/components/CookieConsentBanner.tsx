@@ -29,6 +29,8 @@ export function CookieConsentBanner({
 		}
 		setIsVisible(false);
 		onConsentChange?.();
+		// Notify that consent was granted for immediate page view tracking
+		window.dispatchEvent(new CustomEvent("consent-granted"));
 	};
 
 	const handleDecline = () => {

@@ -2,6 +2,8 @@
  * Google Tag Manager and consent mode integration
  */
 
+import { useRouterState } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { getConsentState } from "./consent";
 
 // Extend Window interface to include gtag
@@ -83,4 +85,60 @@ export function initializeAnalytics(containerId?: string): void {
 		updateConsent("denied");
 	}
 	// If null (no decision), do nothing - banner will show
+}
+
+/**
+ * Track a page view event
+ * Only fires if analytics consent is granted
+ */
+export function trackPageView(): void {
+	if (typeof window === "undefined") return;
+
+	const consentState = getConsentState();
+
+	// Only track if consent is granted
+	if (consentState !== "granted") {
+		return;
+	}
+
+	// Ensure gtag is available
+	if (typeof window.gtag !== "function") {
+		return;
+	}
+
+	window.gtag("event", "page_view", {
+		page_location: window.location.href,
+		page_title: document.title,
+		page_path: window.location.pathname,
+	});
+}
+
+/**
+ * Custom hook to track page views on route changes
+ * Integrates with TanStack Router to fire page_view events on navigation
+ */
+export function usePageViewTracking(): void {
+	const pathname = useRouterState({
+		select: (state) => state.location.pathname,
+	});
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: We need to track pathname changes
+	useEffect(() => {
+		// Track page view on mount and when location changes
+		trackPageView();
+	}, [pathname]);
+
+	// Listen for consent changes and track page view when granted
+	useEffect(() => {
+		const handleConsentGranted = () => {
+			// Fire page view immediately when consent is granted
+			trackPageView();
+		};
+
+		window.addEventListener("consent-granted", handleConsentGranted);
+
+		return () => {
+			window.removeEventListener("consent-granted", handleConsentGranted);
+		};
+	}, []);
 }

@@ -17,9 +17,9 @@ export function ManageCookies({ className = "" }: ManageCookiesProps) {
 			type="button"
 			onClick={handleClick}
 			className={`text-purple-600 dark:text-purple-400 font-semibold transition-colors transition-transform duration-200 hover:text-purple-700 dark:hover:text-purple-300 hover:scale-105 ${className}`}
-			aria-label="Manage cookie preferences"
+			aria-label="Manage tracking consent preferences"
 		>
-			Manage Cookies
+			Manage tracking consent
 		</button>
 	);
 }

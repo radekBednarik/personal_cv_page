@@ -1,9 +1,13 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { usePageViewTracking } from "@/lib/analytics";
 
-export const Route = createRootRoute({
-	component: () => (
+function RootComponent() {
+	// Track page views on all route changes
+	usePageViewTracking();
+
+	return (
 		<>
 			<Outlet />
 			<TanStackDevtools
@@ -18,5 +22,9 @@ export const Route = createRootRoute({
 				]}
 			/>
 		</>
-	),
+	);
+}
+
+export const Route = createRootRoute({
+	component: RootComponent,
 });
