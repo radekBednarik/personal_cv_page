@@ -41,11 +41,13 @@ export function updateConsent(state: "granted" | "denied"): void {
 
 /**
  * Load Google Tag Manager script dynamically
+ * Note: This function checks if GTM is already loaded from index.html
+ * and skips loading if the script tag already exists
  */
 export function loadGTM(containerId: string): void {
 	if (typeof window === "undefined" || typeof document === "undefined") return;
 
-	// Check if GTM is already loaded
+	// Check if GTM is already loaded (from index.html or previous call)
 	const existingScript = document.querySelector(
 		`script[src*="googletagmanager.com/gtm.js"]`,
 	);
@@ -53,7 +55,7 @@ export function loadGTM(containerId: string): void {
 		return;
 	}
 
-	// Create and insert GTM script
+	// Create and insert GTM script (fallback if not loaded from index.html)
 	const script = document.createElement("script");
 	script.async = true;
 	script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
@@ -67,6 +69,9 @@ export function loadGTM(containerId: string): void {
 /**
  * Initialize analytics based on stored consent
  * Call this on app load
+ *
+ * Note: GTM script is loaded from index.html by default.
+ * This function only updates consent state based on user's previous choice.
  */
 export function initializeAnalytics(containerId?: string): void {
 	if (!containerId) {
@@ -77,8 +82,10 @@ export function initializeAnalytics(containerId?: string): void {
 	const consentState = getConsentState();
 
 	if (consentState === "granted") {
-		// User has previously granted consent, load GTM
+		// User has previously granted consent, update consent mode
+		// GTM is already loaded from index.html, so we just update consent
 		updateConsent("granted");
+		// Fallback: ensure GTM is loaded (will skip if already loaded)
 		loadGTM(containerId);
 	} else if (consentState === "denied") {
 		// User has denied consent, just update the state
