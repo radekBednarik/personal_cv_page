@@ -90,3 +90,48 @@ export function trackPageView(path: string, title?: string): void {
 		page_title: title,
 	});
 }
+
+/**
+ * Helper function to delete a specific cookie
+ */
+function deleteCookie(name: string): void {
+	// Delete for current domain and path
+	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
+	// Delete for parent domain (with leading dot)
+	const domain = window.location.hostname;
+	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain};`;
+	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain};`;
+}
+
+/**
+ * Delete all Google Analytics cookies
+ * Call this when user revokes consent
+ */
+export function clearGACookies(): void {
+	if (typeof window === "undefined") {
+		return;
+	}
+
+	// Get all cookies
+	const cookies = document.cookie.split(";");
+
+	// GA cookie patterns to delete
+	const gaCookiePatterns = ["_ga", "_gid", "_gat", "_gac"];
+
+	for (const cookie of cookies) {
+		const cookieName = cookie.split("=")[0].trim();
+
+		// Check if it's a GA cookie
+		const isGACookie = gaCookiePatterns.some((pattern) =>
+			cookieName.startsWith(pattern),
+		);
+
+		if (isGACookie) {
+			// Delete the cookie for all possible paths and domains
+			deleteCookie(cookieName);
+		}
+	}
+
+	console.log("GA cookies cleared");
+}
