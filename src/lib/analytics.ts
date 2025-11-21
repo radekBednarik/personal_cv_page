@@ -1,7 +1,7 @@
 import { getConsent } from "./consent-storage";
 
 // Replace with your actual GA4 measurement ID
-const GA_MEASUREMENT_ID = "GTM-NKV722LN";
+const GA_MEASUREMENT_ID = "G-VLTNCY4VQZ";
 
 declare global {
 	interface Window {
