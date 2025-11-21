@@ -67,6 +67,14 @@ function App() {
 					</a>
 					. All rights reserved.
 				</p>
+				<button
+					type="button"
+					onClick={() => window.dispatchEvent(new Event("showConsentBanner"))}
+					className="mt-2 text-xs text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 underline transition-colors cursor-pointer"
+					aria-label="Manage cookie consent preferences"
+				>
+					Cookie Settings
+				</button>
 			</footer>
 
 			{/* Bug Hunter Game */}
