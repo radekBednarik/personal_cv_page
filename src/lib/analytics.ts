@@ -30,21 +30,12 @@ export function initializeGA(): void {
 	script.async = true;
 	script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
 	document.head.appendChild(script);
-	//
 
 	// Initialize dataLayer
 	window.dataLayer = window.dataLayer || [];
 	window.gtag = function gtag(...args: unknown[]) {
 		window.dataLayer?.push(args);
 	};
-
-	window.gtag("consent", "default", {
-		ad_user_data: "denied",
-		ad_personalization: "denied",
-		ad_storage: "denied",
-		analytics_storage: "denied",
-		wait_for_update: 500,
-	});
 
 	window.gtag("js", new Date());
 	window.gtag("config", GA_MEASUREMENT_ID, {
