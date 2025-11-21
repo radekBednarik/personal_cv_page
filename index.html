@@ -1,98 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        wait_for_update: 500,
+      });
+      dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- Primary Meta Tags -->
-    <title>Radek Bednařík - Senior Test Automation Engineer | Playwright, Cypress, TypeScript</title>
-    <meta name="title" content="Radek Bednařík - Senior Test Automation Engineer | Playwright, Cypress, TypeScript" />
+    <title>
+      Radek Bednařík - Senior Test Automation Engineer | Playwright, Cypress,
+      TypeScript
+    </title>
+    <meta
+      name="title"
+      content="Radek Bednařík - Senior Test Automation Engineer | Playwright, Cypress, TypeScript"
+    />
     <meta
       name="description"
       content="Senior Test Automation Engineer with expertise in Playwright, Cypress, and TypeScript. Specialized in E2E testing, test frameworks, and CI/CD integration. Ph.D. in Economics turned software testing professional."
     />
-    <meta name="keywords" content="test automation, Playwright, Cypress, TypeScript, JavaScript, E2E testing, QA engineer, software testing, test automation engineer, frontend testing, Node.js, CI/CD, Jenkins, GitHub Actions" />
+    <meta
+      name="keywords"
+      content="test automation, Playwright, Cypress, TypeScript, JavaScript, E2E testing, QA engineer, software testing, test automation engineer, frontend testing, Node.js, CI/CD, Jenkins, GitHub Actions"
+    />
     <meta name="author" content="Radek Bednařík" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://radekbednarik.com" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://radekbednarik.com" />
-    <meta property="og:title" content="Radek Bednařík - Senior Test Automation Engineer" />
+    <meta
+      property="og:title"
+      content="Radek Bednařík - Senior Test Automation Engineer"
+    />
     <meta
       property="og:description"
       content="Senior Test Automation Engineer with expertise in Playwright, Cypress, and TypeScript. Specialized in E2E testing, test frameworks, and CI/CD integration."
     />
-    <meta property="og:image" content="https://radekbednarik.com/profile-photo.jpg" />
+    <meta
+      property="og:image"
+      content="https://radekbednarik.com/profile-photo.jpg"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Radek Bednařík Portfolio" />
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://radekbednarik.com" />
-    <meta name="twitter:title" content="Radek Bednařík - Senior Test Automation Engineer" />
+    <meta
+      name="twitter:title"
+      content="Radek Bednařík - Senior Test Automation Engineer"
+    />
     <meta
       name="twitter:description"
       content="Senior Test Automation Engineer with expertise in Playwright, Cypress, and TypeScript. Specialized in E2E testing, test frameworks, and CI/CD integration."
     />
-    <meta name="twitter:image" content="https://radekbednarik.com/profile-photo.jpg" />
-    
+    <meta
+      name="twitter:image"
+      content="https://radekbednarik.com/profile-photo.jpg"
+    />
+
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Radek Bednařík",
-      "jobTitle": "Senior Test Automation Engineer",
-      "description": "Senior Test Automation Engineer specializing in Playwright, Cypress, TypeScript, and E2E testing solutions.",
-      "url": "https://radekbednarik.com",
-      "sameAs": [
-        "https://github.com/radekBednarik"
-      ],
-      "email": "radek.bednarik@tesena.com",
-      "image": "https://radekbednarik.com/profile-photo.jpg",
-      "alumniOf": [
-        {
-          "@type": "EducationalOrganization",
-          "name": "VSB-TU Ostrava",
-          "url": "https://www.ekf.vsb.cz/cs/"
-        }
-      ],
-      "knowsAbout": [
-        "Test Automation",
-        "Playwright",
-        "Cypress",
-        "TypeScript",
-        "JavaScript",
-        "Python",
-        "E2E Testing",
-        "CI/CD",
-        "Node.js",
-        "GitHub Actions",
-        "Jenkins"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Radek Bednařík",
+        "jobTitle": "Senior Test Automation Engineer",
+        "description": "Senior Test Automation Engineer specializing in Playwright, Cypress, TypeScript, and E2E testing solutions.",
+        "url": "https://radekbednarik.com",
+        "sameAs": ["https://github.com/radekBednarik"],
+        "email": "radek.bednarik@tesena.com",
+        "image": "https://radekbednarik.com/profile-photo.jpg",
+        "alumniOf": [
+          {
+            "@type": "EducationalOrganization",
+            "name": "VSB-TU Ostrava",
+            "url": "https://www.ekf.vsb.cz/cs/"
+          }
+        ],
+        "knowsAbout": [
+          "Test Automation",
+          "Playwright",
+          "Cypress",
+          "TypeScript",
+          "JavaScript",
+          "Python",
+          "E2E Testing",
+          "CI/CD",
+          "Node.js",
+          "GitHub Actions",
+          "Jenkins"
+        ]
+      }
     </script>
-    
+
     <!-- Favicons for all browsers -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    
+
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    
+
     <!-- Android Chrome Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
-    
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/android-chrome-512x512.png"
+    />
+
     <!-- PWA & Theme -->
     <meta name="theme-color" content="#9333ea" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <link rel="manifest" href="/manifest.json" />
   </head>
   <body>
