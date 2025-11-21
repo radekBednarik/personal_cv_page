@@ -18,21 +18,6 @@ export function getConsent(): boolean | null {
 }
 
 /**
- * Emit a custom event when consent is given
- * This allows other parts of the app to react to consent changes
- */
-function emitConsentChange(accepted: boolean): void {
-	if (typeof window === "undefined") {
-		return;
-	}
-
-	const event = new CustomEvent("consentChange", {
-		detail: { accepted },
-	});
-	window.dispatchEvent(event);
-}
-
-/**
  * Set the consent status in localStorage
  * @param accepted - true if user accepts tracking, false if declined
  */
@@ -42,7 +27,6 @@ export function setConsent(accepted: boolean): void {
 	}
 
 	localStorage.setItem(CONSENT_KEY, String(accepted));
-	emitConsentChange(accepted);
 }
 
 /**

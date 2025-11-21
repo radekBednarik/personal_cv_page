@@ -7,7 +7,6 @@ import {
 	hasConsentDecision,
 	setConsent,
 } from "@/lib/consent-storage";
-import { initializeGA } from "@/lib/analytics";
 
 export function ConsentBanner() {
 	const [isVisible, setIsVisible] = useState(false);
@@ -33,7 +32,6 @@ export function ConsentBanner() {
 
 	const handleAccept = () => {
 		setConsent(true);
-		initializeGA();
 		setIsVisible(false);
 	};
 
