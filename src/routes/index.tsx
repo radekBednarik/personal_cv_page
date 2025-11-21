@@ -1,12 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { BugHunter } from "@/components/BugHunter";
+import { CookieConsentBanner } from "@/components/CookieConsentBanner";
 import { EducationCertsSection } from "@/components/EducationCertsSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import Header from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
+import { ManageCookies } from "@/components/ManageCookies";
 import { ProfileSection } from "@/components/ProfileSection";
 import { SkillsSection } from "@/components/SkillsSection";
 import { TestingPhilosophySection } from "@/components/TestingPhilosophySection";
+import { initializeAnalytics } from "@/lib/analytics";
 import type { Resume } from "@/lib/resume-types";
 import resumeData from "../../.temp/resume.json";
 
@@ -16,6 +20,13 @@ export const Route = createFileRoute("/")({
 
 function App() {
 	const resume = resumeData as Resume;
+	const gtmContainerId = import.meta.env.VITE_GTM_CONTAINER_ID;
+
+	useEffect(() => {
+		// Initialize analytics on component mount
+		initializeAnalytics(gtmContainerId);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div className="min-h-screen bg-white dark:bg-gray-900">
@@ -67,10 +78,16 @@ function App() {
 					</a>
 					. All rights reserved.
 				</p>
+				<p className="text-sm mt-2">
+					<ManageCookies />
+				</p>
 			</footer>
 
 			{/* Bug Hunter Game */}
 			<BugHunter />
+
+			{/* Cookie Consent Banner */}
+			<CookieConsentBanner containerId={gtmContainerId} />
 		</div>
 	);
 }

@@ -17,6 +17,25 @@ pnpm check        # Lint and format with Biome
 pnpm serve        # Preview production build
 ```
 
+### Google Analytics Setup
+
+This site uses Google Tag Manager with consent mode v2 for privacy-compliant analytics:
+
+1. Create a GTM container at [https://tagmanager.google.com](https://tagmanager.google.com)
+2. Copy your container ID (format: `GTM-XXXXXXX`)
+3. Create a `.env` file in the project root:
+   ```
+   VITE_GTM_CONTAINER_ID=GTM-XXXXXXX
+   ```
+4. The consent banner will automatically appear on first visit
+5. Analytics only loads after user grants consent
+
+**Consent Flow:**
+- **Accept**: Enables analytics, saves preference
+- **Decline**: Disables analytics, saves preference  
+- **Dismiss (X)**: Same as Decline - disables analytics and saves preference
+- **Manage Cookies**: Link in footer to change preference
+
 ## Tech Stack
 
 - **React 19** with TanStack Router (file-based routing)
