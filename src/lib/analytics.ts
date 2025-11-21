@@ -49,7 +49,7 @@ export function loadGTM(containerId: string): void {
 
 	// Check if GTM is already loaded (from index.html or previous call)
 	const existingScript = document.querySelector(
-		`script[src*="googletagmanager.com/gtm.js"]`,
+		`script[src*="googletagmanager.com/gtag/js"]`,
 	);
 	if (existingScript) {
 		return;
