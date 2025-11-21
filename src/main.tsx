@@ -7,6 +7,7 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 import reportWebVitals from "./reportWebVitals.ts";
+import { initializeGAIfConsented } from "./lib/analytics";
 
 // Create a new router instance
 const router = createRouter({
@@ -24,6 +25,9 @@ declare module "@tanstack/react-router" {
 		router: typeof router;
 	}
 }
+
+// Initialize Google Analytics if user has already consented
+initializeGAIfConsented();
 
 // Render the app
 const rootElement = document.getElementById("app");
