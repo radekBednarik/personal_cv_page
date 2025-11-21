@@ -38,12 +38,11 @@ export function initializeGA(): void {
 		window.dataLayer?.push(args);
 	};
 
-	window.gtag("consent", "default", {
-		ad_user_data: "denied",
-		ad_personalization: "denied",
-		ad_storage: "denied",
-		analytics_storage: "denied",
-		wait_for_update: 500,
+	window.gtag("consent", "update", {
+		ad_user_data: "granted",
+		ad_personalization: "granted",
+		ad_storage: "granted",
+		analytics_storage: "granted",
 	});
 
 	window.gtag("js", new Date());
