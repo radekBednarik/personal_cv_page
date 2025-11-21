@@ -58,7 +58,7 @@ export function loadGTM(containerId: string): void {
 	// Create and insert GTM script (fallback if not loaded from index.html)
 	const script = document.createElement("script");
 	script.async = true;
-	script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
+	script.src = `https://www.googletagmanager.com/gtag/js?id=${containerId}`;
 
 	const firstScript = document.getElementsByTagName("script")[0];
 	if (firstScript?.parentNode) {
