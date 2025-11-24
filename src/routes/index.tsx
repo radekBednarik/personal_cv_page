@@ -7,6 +7,7 @@ import { ExperienceSection } from "@/components/ExperienceSection";
 import Header from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { ManageCookies } from "@/components/ManageCookies";
+import { MediaSection } from "@/components/MediaSection";
 import { ProfileSection } from "@/components/ProfileSection";
 import { SkillsSection } from "@/components/SkillsSection";
 import { TestingPhilosophySection } from "@/components/TestingPhilosophySection";
@@ -49,6 +50,10 @@ function App() {
 					experience={resume.sections.experience}
 					projects={resume.sections.projects}
 				/>
+			</div>
+			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
+			<div id="media">
+				<MediaSection />
 			</div>
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
 			<div id="skills">

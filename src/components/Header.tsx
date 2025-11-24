@@ -72,6 +72,7 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 		{ id: "profile", label: "About" },
 		{ id: "testing-philosophy", label: "Testing Philosophy" },
 		{ id: "experience", label: "Experience" },
+		{ id: "media", label: "Media" },
 		{ id: "skills", label: "Skills" },
 		{ id: "education", label: "Education" },
 		{ id: "certifications", label: "Certifications" },
