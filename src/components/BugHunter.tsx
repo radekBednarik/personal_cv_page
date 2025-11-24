@@ -25,6 +25,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { trackEvent } from "@/lib/analytics";
 import { triggerHaptic } from "@/lib/haptics";
 
 interface BugRank {
@@ -242,6 +243,13 @@ export function BugHunter() {
 		// Trigger haptic feedback on mobile
 		triggerHaptic(30);
 
+		// Track bug squash event
+		trackEvent("game_interaction", {
+			interaction_type: "bug_squash",
+			game_name: "bug_hunter",
+			total_bugs_squashed: totalBugsSquashed + 1,
+		});
+
 		// Trigger animations for score indicator
 		setShowScoreAnimation(true);
 
@@ -272,6 +280,15 @@ export function BugHunter() {
 			if (nextRank && nextRank.id !== previousRankRef.current?.id) {
 				setUnlockedRank(nextRank);
 				setIsCelebrationOpen(true);
+
+				// Track rank unlock achievement
+				trackEvent("unlock_achievement", {
+					achievement_id: `rank_${nextRank.id}`,
+					achievement_name: nextRank.name,
+					game_name: "bug_hunter",
+					total_bugs_squashed: nextTotal,
+					rank_level: nextRank.id,
+				});
 
 				// Stronger haptic buzz for rank ups
 				triggerHaptic(60);
@@ -645,14 +662,18 @@ export function BugHunter() {
 								New QA rank unlocked!
 							</DialogTitle>
 						</div>
-						<DialogDescription className="mt-2 space-y-3 text-center text-muted-foreground">
-							<p className="text-base">
+						<DialogDescription className="sr-only">
+							You have unlocked a new QA rank: {unlockedRank.name}. Total bugs
+							squashed: {totalBugsSquashed}.
+						</DialogDescription>
+						<div className="mt-2 space-y-3 text-center text-muted-foreground">
+							<div className="text-base">
 								You are now{" "}
 								<span className="font-semibold text-purple-700 dark:text-purple-300">
 									{unlockedRank.name}
 								</span>
 								.
-							</p>
+							</div>
 							<div className="flex flex-col items-center gap-1">
 								<span className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80">
 									Total bugs squashed
@@ -666,10 +687,10 @@ export function BugHunter() {
 									</span>
 								</div>
 							</div>
-							<p className="text-xs text-muted-foreground">
+							<div className="text-xs text-muted-foreground">
 								HR just opened a ticket to upgrade your nerf-gun budget.
-							</p>
-						</DialogDescription>
+							</div>
+						</div>
 						<DialogClose aria-label="Close celebration" />
 					</DialogContent>
 				</Dialog>
