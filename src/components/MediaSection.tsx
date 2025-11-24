@@ -1,4 +1,5 @@
 import { Radio } from "lucide-react";
+import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function MediaSection() {
@@ -44,16 +45,11 @@ export function MediaSection() {
 
 					<CardContent className="pl-6 pr-4 pb-6">
 						<div className="w-full rounded-xl overflow-hidden">
-							<iframe
-								data-testid="embed-iframe"
-								style={{ borderRadius: "12px", border: "none" }}
-								src="https://open.spotify.com/embed/episode/63eSpUafOl1h0HLLQSdnPV?utm_source=generator&theme=0"
+							<SpotifyEmbed
+								episodeUri="spotify:episode:63eSpUafOl1h0HLLQSdnPV"
+								title="QE - When Automation Isn't Just a Buzzword"
 								width="100%"
-								height="152"
-								allowFullScreen={true}
-								allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-								loading="lazy"
-								title="Podcast: Testování Software (in Czech)"
+								height={152}
 							/>
 						</div>
 					</CardContent>
