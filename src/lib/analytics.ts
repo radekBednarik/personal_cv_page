@@ -121,6 +121,34 @@ export function trackPageView(): void {
 }
 
 /**
+ * Track a custom event using GA4 recommended event structure
+ * Only fires if analytics consent is granted
+ *
+ * @param eventName - GA4 event name (e.g., 'select_content', 'click', etc.)
+ * @param eventParams - Event parameters (e.g., { content_type: 'link', content_id: 'linkedin' })
+ */
+export function trackEvent(
+	eventName: string,
+	eventParams?: Record<string, unknown>,
+): void {
+	if (typeof window === "undefined") return;
+
+	const consentState = getConsentState();
+
+	// Only track if consent is granted
+	if (consentState !== "granted") {
+		return;
+	}
+
+	// Ensure gtag is available
+	if (typeof window.gtag !== "function") {
+		return;
+	}
+
+	window.gtag("event", eventName, eventParams);
+}
+
+/**
  * Custom hook to track page views on route changes
  * Integrates with TanStack Router to fire page_view events on navigation
  */

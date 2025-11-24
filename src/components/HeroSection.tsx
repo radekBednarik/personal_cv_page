@@ -1,6 +1,7 @@
 import { CheckCircle2, Code2, FlaskConical } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/analytics";
 import { triggerHaptic } from "@/lib/haptics";
 import type { Basics } from "@/lib/resume-types";
 
@@ -84,6 +85,14 @@ export function HeroSection({ basics }: HeroSectionProps) {
 									target="_blank"
 									rel="noopener noreferrer"
 									onTouchStart={() => triggerHaptic()}
+									onClick={() => {
+										trackEvent("select_content", {
+											content_type: "link",
+											content_id: "linkedin_profile",
+											link_text: "Get in Touch",
+											link_url: "https://www.linkedin.com/in/bednarikradek/",
+										});
+									}}
 								>
 									<LinkedInIcon className="mr-2 h-4 w-4" />
 									Get in Touch
