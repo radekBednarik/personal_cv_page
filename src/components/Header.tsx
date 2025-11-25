@@ -9,6 +9,7 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
+import { trackEvent } from "@/lib/analytics";
 import { triggerHaptic } from "@/lib/haptics";
 
 // Custom LinkedIn icon component using official LinkedIn brand SVG
@@ -148,6 +149,14 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 								rel="noopener noreferrer"
 								aria-label="Github"
 								onTouchStart={() => triggerHaptic()}
+								onClick={() => {
+									trackEvent("click", {
+										link_type: "social",
+										link_destination: "github",
+										link_url: githubUrl,
+										outbound: true,
+									});
+								}}
 							>
 								<SiGithub className="h-5 w-5" />
 							</a>
@@ -166,6 +175,14 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 								rel="noopener noreferrer"
 								aria-label="LinkedIn"
 								onTouchStart={() => triggerHaptic()}
+								onClick={() => {
+									trackEvent("click", {
+										link_type: "social",
+										link_destination: "linkedin",
+										link_url: linkedinUrl,
+										outbound: true,
+									});
+								}}
 							>
 								<LinkedInIcon className="h-5 w-5" />
 							</a>
