@@ -66,7 +66,7 @@ export function SpotifyEmbed({
 					controller.addListener("playback_started", (event: unknown) => {
 						const e = event as SpotifyPlaybackStartedEvent;
 						if (!hasStartedRef.current) {
-							trackEvent("video_start", {
+							trackEvent("playback_start", {
 								content_type: "podcast",
 								content_id: e.data.playingURI,
 								item_id: episodeId,
@@ -95,7 +95,7 @@ export function SpotifyEmbed({
 								progressPercent >= milestone &&
 								!progressMilestonesRef.current.has(milestone)
 							) {
-								trackEvent("video_progress", {
+								trackEvent("playback_progress", {
 									content_type: "podcast",
 									content_id: episodeUri,
 									item_id: episodeId,
@@ -115,7 +115,7 @@ export function SpotifyEmbed({
 							!lastPausedStateRef.current &&
 							hasStartedRef.current
 						) {
-							trackEvent("video_pause", {
+							trackEvent("playback_pause", {
 								content_type: "podcast",
 								content_id: episodeUri,
 								item_id: episodeId,
@@ -132,7 +132,7 @@ export function SpotifyEmbed({
 							hasStartedRef.current &&
 							position > 0
 						) {
-							trackEvent("video_resume", {
+							trackEvent("playback_resume", {
 								content_type: "podcast",
 								content_id: episodeUri,
 								item_id: episodeId,
@@ -150,7 +150,7 @@ export function SpotifyEmbed({
 							hasStartedRef.current &&
 							!isPaused
 						) {
-							trackEvent("video_seek", {
+							trackEvent("playback_seek", {
 								content_type: "podcast",
 								content_id: episodeUri,
 								item_id: episodeId,
@@ -163,7 +163,7 @@ export function SpotifyEmbed({
 
 						// Track completion (95%+)
 						if (progressPercent >= 95 && !hasCompletedRef.current) {
-							trackEvent("video_complete", {
+							trackEvent("playback_complete", {
 								content_type: "podcast",
 								content_id: episodeUri,
 								item_id: episodeId,
