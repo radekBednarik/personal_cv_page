@@ -6,7 +6,11 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
+import { initializeTheme } from "@/lib/theme";
 import reportWebVitals from "./reportWebVitals.ts";
+
+// Initialize theme before React renders (prevents FOUC)
+initializeTheme();
 
 // Create a new router instance
 const router = createRouter({

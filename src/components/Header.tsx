@@ -1,6 +1,7 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
@@ -103,6 +104,12 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 						<SheetHeader>
 							<SheetTitle className="dark:text-gray-100">Navigation</SheetTitle>
 						</SheetHeader>
+						<div className="flex items-center justify-between px-4 py-4 border-b dark:border-gray-800">
+							<span className="text-sm font-medium dark:text-gray-300">
+								Theme
+							</span>
+							<ThemeSwitcher />
+						</div>
 						<nav
 							className="flex flex-col gap-4 mt-8 px-4"
 							aria-label="Mobile navigation"
@@ -136,6 +143,7 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 				</nav>
 
 				<div className="flex gap-2">
+					<ThemeSwitcher />
 					{githubUrl && (
 						<Button
 							variant="ghost"
