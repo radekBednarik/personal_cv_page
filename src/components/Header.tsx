@@ -71,7 +71,6 @@ export default function Header({ githubUrl, linkedinUrl }: HeaderProps) {
 
 	const navItems = [
 		{ id: "profile", label: "About" },
-		{ id: "testing-philosophy", label: "Testing Philosophy" },
 		{ id: "experience", label: "Experience" },
 		{ id: "media", label: "Media" },
 		{ id: "skills", label: "Skills" },

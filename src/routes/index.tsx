@@ -10,7 +10,6 @@ import { ManageCookies } from "@/components/ManageCookies";
 import { MediaSection } from "@/components/MediaSection";
 import { ProfileSection } from "@/components/ProfileSection";
 import { SkillsSection } from "@/components/SkillsSection";
-import { TestingPhilosophySection } from "@/components/TestingPhilosophySection";
 import { initializeAnalytics } from "@/lib/analytics";
 import type { Resume } from "@/lib/resume-types";
 import resumeData from "../../.temp/resume.json";
@@ -36,10 +35,6 @@ function App() {
 				linkedinUrl="https://www.linkedin.com/in/bednarikradek/"
 			/>
 			<HeroSection basics={resume.basics} />
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
-			<div id="testing-philosophy">
-				<TestingPhilosophySection />
-			</div>
 			{/* biome-ignore lint/correctness/useUniqueElementIds: Navigation landmark ID */}
 			<div id="profile">
 				<ProfileSection />
