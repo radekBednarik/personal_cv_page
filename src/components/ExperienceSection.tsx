@@ -4,7 +4,7 @@ import {
 	ChevronDown,
 	ExternalLink,
 	Newspaper,
-	TestTube,
+	ShieldCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { ToolBadge } from "@/components/ToolBadge";
@@ -82,7 +82,7 @@ export function ExperienceSection({
 		>
 			<div className="container mx-auto max-w-4xl">
 				<div className="flex items-center gap-3 mb-8">
-					<TestTube
+					<ShieldCheck
 						className="h-8 w-8 text-purple-600 dark:text-purple-400"
 						aria-hidden="true"
 					/>

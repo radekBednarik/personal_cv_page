@@ -1,4 +1,4 @@
-import { CheckCircle2, Code2, FlaskConical } from "lucide-react";
+import { CheckCircle2, Code2, Terminal } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
@@ -33,7 +33,7 @@ export function HeroSection({ basics }: HeroSectionProps) {
 		>
 			{/* Floating background elements */}
 			<div className="absolute top-10 right-10 opacity-10 dark:opacity-20">
-				<FlaskConical className="h-16 w-16 md:h-32 md:w-32 text-purple-600 dark:text-purple-400 animate-float" />
+				<Terminal className="h-16 w-16 md:h-32 md:w-32 text-purple-600 dark:text-purple-400 animate-float" />
 			</div>
 			<div className="absolute bottom-10 left-10 opacity-10 dark:opacity-20">
 				<Code2 className="h-12 w-12 md:h-24 md:w-24 text-purple-600 dark:text-purple-400 animate-float-delayed" />
